@@ -21,7 +21,7 @@ Events (tournaments...),
 Basic version of the game
 
 # Wireframes
-<img src='/wireframe.png'>
+<img src='images/wireframe.png'>
 https://wireframepro.mockflow.com/view/Ma9f049c5e2ef4f1452e77725e0e4fb091602166447826
 
 # APIs
