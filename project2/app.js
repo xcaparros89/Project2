@@ -66,7 +66,7 @@ app.use(session({
 
 app.use("/", authRouter);
 app.use('/', indexRouter);
-app.use('/', searchRouter)
+app.use('/search', searchRouter)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

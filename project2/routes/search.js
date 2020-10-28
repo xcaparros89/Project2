@@ -2,11 +2,11 @@ var express = require('express');
 const mtg = require('mtgsdk');
 var router = express.Router();
 
-router.get('/search', function(req, res, next) {
-  res.render('cardSearch');
+router.get('/card', function(req, res, next) {
+  res.render('search/card');
 });
 
-router.post("/search", async (req, res, next) => {
+router.post("/card", async (req, res, next) => {
     // validamos los datos que vienen del formulario
     let searchParams = {types:req.body.params};
 let search = async(searchParams)=>{
@@ -20,6 +20,28 @@ let search = async(searchParams)=>{
 search(searchParams)
 res.redirect('/')
   });
+
+
+router.get('/deck', function(req, res, next) {
+  res.render('search/deck');
+});
+
+router.post("/deck", async (req, res, next) => {
+    // validamos los datos que vienen del formulario
+    let searchParams = {types:req.body.params};
+let search = async(searchParams)=>{
+        try{
+            const results = await mtg.card.where(searchParams);
+            console.log(results);
+        }catch(err){
+            console.log(err);
+        }
+    }
+search(searchParams)
+res.redirect('/')
+  });
+
+
 
 module.exports = router;
 

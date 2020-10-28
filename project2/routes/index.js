@@ -5,10 +5,10 @@ const Card = require('../models/Card');
 
 /* GET home page. */
 router.get('/', async function(req, res, next) {
-  res.render('index', { title: 'Deck generator' });
+  res.render('index', { title: 'MTG Organize & Build' });
 });
 
-router.use(['/profile'], (req, res, next) => {
+router.use(['/profile'], (req, res, next) => { // Todo lo que esta dentro del Array es protected.
   // if hay un usuario en sesión (si está logged in)
   if (req.session.currentUser) {
     next();
