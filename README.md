@@ -71,33 +71,6 @@ project2/
 ​                ├── myPage.hbs
 ​                └── ??????.hbs
 
-**root/**
-
-- awget.html
-- index.html
-- signup.html
-- **css/**
-  - form.css
-  - styles.css
-  - **fonts/**
-    - font.ttf
-- **img/**
-  - cover.png
-- **scripts/**
-  - apiCall.js
-  - awget.js
-  - awget-disk.js
-  - database.js
-  - login.js
-  - signup.js
-  - users.js
-  - validator.js
-- **assets/**
-  - img/
-  - fonts/
-
-
-
 
 # Routes
 
