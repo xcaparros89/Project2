@@ -31,7 +31,8 @@ https://api.magicthegathering.io
 project2/
 
 ​	|── .gitignore
-​        |── .env
+
+​	|── .env
 
 ​	|── app.js
 ​        ├── readme.md
