@@ -29,44 +29,45 @@ https://api.magicthegathering.io
 
 # Structure
 project2/
-        |------ .gitignore
-        |------ .env
-        ├── app.js
-        ├── readme.md
-        ├── bin
-        │   ├── seeds.js
-        │   └── www
-        ├── middlewares
-        │   └── auth-mid.js
-        ├── models
-        │   ├── deck.js
-        │   └── user.js
-        ├── public
-        │   ├── images
-        │   ├── scripts
-        │   └── stylesheets
-        ├── routes
-        │   ├── index.js
-        │   ├── deck.js
-        │   ├── auth.js
-        │   └── private
-        │       ├── myPage.js
-        │       └── ???????.js
-        │
-        └── views
-            ├── error.hbs
-            ├── index.hbs
-            ├── layout.hbs
-            ├── deckSearch.hbs
-            │       └── deckInfo.hbs
-            ├── cardSearch.hbs
-            │       └── cardInfo.hbs
-            ├── auth
-            │   ├── login.hbs
-            │   └── signup.hbs
-            └── private
-                ├── myPage.hbs
-                └── ??????.hbs
+
+​	|------ .gitignore
+​        |------ .env
+​        ├── app.js
+​        ├── readme.md
+​        ├── bin
+​        │   ├── seeds.js
+​        │   └── www
+​        ├── middlewares
+​        │   └── auth-mid.js
+​        ├── models
+​        │   ├── deck.js
+​        │   └── user.js
+​        ├── public
+​        │   ├── images
+​        │   ├── scripts
+​        │   └── stylesheets
+​        ├── routes
+​        │   ├── index.js
+​        │   ├── deck.js
+​        │   ├── auth.js
+​        │   └── private
+​        │       ├── myPage.js
+​        │       └── ???????.js
+​        │
+​        └── views
+​            ├── error.hbs
+​            ├── index.hbs
+​            ├── layout.hbs
+​            ├── deckSearch.hbs
+​            │       └── deckInfo.hbs
+​            ├── cardSearch.hbs
+​            │       └── cardInfo.hbs
+​            ├── auth
+​            │   ├── login.hbs
+​            │   └── signup.hbs
+​            └── private
+​                ├── myPage.hbs
+​                └── ??????.hbs
 
 **root/**
 
