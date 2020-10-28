@@ -33,7 +33,7 @@ project2/
 ​	|------ .gitignore
 ​        |------ .env
 
-​	├── app.js
+​	|── app.js
 ​        ├── readme.md
 ​        ├── bin
 ​        │   ├── seeds.js
