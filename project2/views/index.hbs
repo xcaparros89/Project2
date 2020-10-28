@@ -1,11 +1,18 @@
-<h1>{{title}}</h1>
-<div id="container">
+<div class="container">
     {{!-- Se ha de mostrar o los botones de signpu y login o los de profile y logout dependiendo de si ha iniciado sesion --}}
-    <a href="/signup">Sign up</a>
-    <a href="/login">Login</a>
-    <a href="/profile">Profile</a>
-    <a href="/logout">Logout</a>
+    <div class="row">
+        <div class="col"><h1>{{title}}</h1></div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12 col-md-6 col-lg-3"><a href="/signup">Sign up</a></div>
+        <div class="col-sm-12 col-md-6 col-lg-3"><a href="/login">Login</a></div>
+        <div class="col-sm-12 col-md-6 col-lg-3"><a href="/profile">Profile</a></div>
+        <a href="/logout">Logout</a>
+    </div>
+    <div class="row">
+        <div class="col"><p>Welcome to {{title}}</p></div>
+    </div>
 </div>
 
-<p>Welcome to {{title}}</p>
+
 
