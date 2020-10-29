@@ -33,11 +33,11 @@ project2/\
 &nbsp;&nbsp;&nbsp;&nbsp;|── .env\
 &nbsp;&nbsp;&nbsp;&nbsp;|── bin\
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|── seeds.js\
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└── www\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└── www\
 &nbsp;&nbsp;&nbsp;&nbsp;|── models
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|── Card.js\
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|── Deck.js\
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└── User.js\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└── User.js\
 
 
 &nbsp;&nbsp;&nbsp;&nbsp;|── app.js\
