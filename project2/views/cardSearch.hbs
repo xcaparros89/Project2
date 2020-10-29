@@ -1,8 +1,23 @@
 
 <form id="form" action="/search" method="POST">
     <h2>Card search</h2>
-    <label for="params">Params</label>
-    <br />
-    <input type="params" name="params" placeholder="Params" />
+    <label for="name">Name:</label>
+    <input type="text" name="name" />
+
+    <label for="type">Type:</label>
+    <input type="text" name="type" />
+
+    <label for="subtype">Subtype:</label>
+    <input type="text" name="subtype" />
+
+    <label for="set_name">Set:</label>
+    <input type="text" name="set_name" />
+
+    <label for="legality">Legality:</label>
+    <input type="text" name="legality" />{{!-- change type text for predefined choices --}}
+    <label for="colors">Colors:</label>
+    <input type="text" name="colors" />
+
+
     <button type="submit">Create account</button>
 </form>
