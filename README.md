@@ -29,18 +29,12 @@ https://api.magicthegathering.io
 
 # Structure
 project2/
-
-​	|── .gitignore
-
-​	|── .env
-
-​	|── app.js
-
-​	|── README.md
-
-​		|── bin
-
-​			|── seeds.js
+	|── .gitignore
+	|── .env
+	|── app.js
+	|── README.md
+	|── bin
+		|── seeds.js
 
 ​			└── www
 ​        ├── middlewares
