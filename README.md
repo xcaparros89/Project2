@@ -28,6 +28,7 @@ https://wireframepro.mockflow.com/view/Ma9f049c5e2ef4f1452e77725e0e4fb0916021664
 https://api.magicthegathering.io
 
 # Structure
+
 project2/\
 &nbsp;&nbsp;&nbsp;&nbsp;|── bin\
 &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|── seeds.js\
@@ -64,7 +65,7 @@ project2/\
 &nbsp;&nbsp;&nbsp;&nbsp;|── .gitignore\
 &nbsp;&nbsp;&nbsp;&nbsp;|── app.js\
 &nbsp;&nbsp;&nbsp;&nbsp;|── package-lock.json\
-&nbsp;&nbsp;&nbsp;&nbsp;|── package.json\
+&nbsp;&nbsp;&nbsp;&nbsp;|── package.json\n
 README.md\
 
 # Routes
