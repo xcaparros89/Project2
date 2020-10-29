@@ -35,10 +35,14 @@ project2/
 ​	|── .env
 
 ​	|── app.js
-​		|── README.md
-​        ├── bin
-​        │   ├── seeds.js
-​        │   └── www
+
+​	|── README.md
+
+​		|── bin
+
+​			|── seeds.js
+
+​			└── www
 ​        ├── middlewares
 ​        │   └── auth-mid.js
 ​        ├── models
