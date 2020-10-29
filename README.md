@@ -81,13 +81,17 @@ User model\
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;imgPath: { type: String, default: 'project/public/images/wireframe.png' },\
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;decksId: [{ type: Schema.Types.ObjectId, ref: 'Deck' }]\
 &nbsp;&nbsp;&nbsp;&nbsp;}\
-Deck model
-  {
-    title: { type: String, required: true, unique: true },
-    description: String,
-    cards: {type:[String], required: true},
-    userId: { type: Schema.Types.ObjectId, ref: 'User' }
-  }
+\
+Deck model\
+&nbsp;&nbsp;&nbsp;&nbsp;{\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name: {type: String, require: true},\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;authorId: {type: String, require: true},\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mainCards: {type: [{cardId: String, count: Number}], require: true},\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sideboard: {type: [{cardId: String, count: Number}], require: true},\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;likes: {type: [String]}\
+&nbsp;&nbsp;&nbsp;&nbsp;}\
+\
+
 
 # Links
 GitHub
