@@ -1,7 +1,21 @@
-<form id="form" action="/card" method="POST">
-    <h2>Card search</h2>
-    <label for="params">Params</label>
-    <br />
-    <input type="params" name="params" placeholder="Params" />
-    <button type="submit">Search</button>
-</form>
+<!-- search/card.hbs -->
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h2>Card search</h2>
+        </div>
+        <div class="col-12">
+            <div>
+                <form id="form" action="/card" method="POST">
+                    <input type="params" name="params" placeholder="Card Name" />
+                    <button type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        {{#each testCards}}
+        {{> card this}}
+        {{/each}}
+    </div>
+</div>
