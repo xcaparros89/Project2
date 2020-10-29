@@ -29,15 +29,13 @@ https://api.magicthegathering.io
 
 # Structure
 project2/\
-&nbsp;&nbsp;&nbsp;&nbsp;|── .gitignore\
-&nbsp;&nbsp;&nbsp;&nbsp;|── .env\
 &nbsp;&nbsp;&nbsp;&nbsp;|── bin\
 &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|── seeds.js\
 &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;└── www\
 &nbsp;&nbsp;&nbsp;&nbsp;|── models\
 &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|── Card.js\
 &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|── Deck.js\
-&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;└─ User.js\
+&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;└── User.js\
 &nbsp;&nbsp;&nbsp;&nbsp;|── public\
 &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|── images\
 &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|── favicon.ico\
@@ -63,47 +61,11 @@ project2/\
 &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|── index.hbs\
 &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|── layout.hbs\
 &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;└── profile.hbs\
-
-
-
+&nbsp;&nbsp;&nbsp;&nbsp;|── .gitignore\
 &nbsp;&nbsp;&nbsp;&nbsp;|── app.js\
-	|── README.md
-
-
-
-​			└── www
-​        ├── middlewares
-​        │   └── auth-mid.js
-​        ├── models
-​        │   ├── deck.js
-​        │   └── user.js
-​        ├── public
-​        │   ├── images
-​        │   ├── scripts
-​        │   └── stylesheets
-​        ├── routes
-​        │   ├── index.js
-​        │   ├── deck.js
-​        │   ├── auth.js
-​        │   └── private
-​        │       ├── myPage.js
-​        │       └── ???????.js
-​        │
-​        └── views
-​            ├── error.hbs
-​            ├── index.hbs
-​            ├── layout.hbs
-​            ├── deckSearch.hbs
-​            │       └── deckInfo.hbs
-​            ├── cardSearch.hbs
-​            │       └── cardInfo.hbs
-​            ├── auth
-​            │   ├── login.hbs
-​            │   └── signup.hbs
-​            └── private
-​                ├── myPage.hbs
-​                └── ??????.hbs
-
+&nbsp;&nbsp;&nbsp;&nbsp;|── package-lock.json\
+&nbsp;&nbsp;&nbsp;&nbsp;|── package.json\
+README.md\
 
 # Routes
 
