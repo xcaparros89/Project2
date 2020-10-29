@@ -26,7 +26,7 @@ https://wireframepro.mockflow.com/view/Ma9f049c5e2ef4f1452e77725e0e4fb0916021664
 
 # APIs
 https://api.magicthegathering.io
-\
+
 # Structure
 \
 project2/\
@@ -73,7 +73,7 @@ README.md
 MethodRouteDescriptionRequest - BodyGET/Main page route. Renders home index view.GET/loginRenders login form view.POST/loginSends Login form data to the server.{ username, password }GET/signupRenders signup form view.POST/signupSends SignUp info to the server and creates user in the DB.{ name, email, password }GET/randomRenders to the random card pageGET/userPriv route. Renders user view and list projects and cardsGET/project/create/Priv route. Renders create projects form.POST/project/create/:_idPriv route. Sends new projects info to server, updates DB.{ projectname, description}GET/project/edit/Priv route. Renders edit projects form.PUT/project/edit/:_idPriv route. Sends edit projects info to server, updates DB.{ projectname, description }POST/card/create/Priv route. Sends new cards info to server, updates DB.{ description }GET/card/create/Priv route. Renders create cards form.DELETE/projectsPriv route. Deletes user project from DB.DELETE/cardsPriv route. Deletes user card from DB.GET/logoutPriv route. Destroy current session. Renders home index view.
 
 # Models
-User model
+User model\
   {
     username: String,
     email: String,
