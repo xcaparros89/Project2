@@ -92,6 +92,7 @@ Deck model\
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;likes: {type: [String]}\
 &nbsp;&nbsp;&nbsp;&nbsp;}\
 \
+
 # Links
 GitHub
 https://github.com/xcaparros89/Project2
