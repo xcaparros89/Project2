@@ -74,13 +74,13 @@ MethodRouteDescriptionRequest - BodyGET/Main page route. Renders home index view
 
 # Models
 User model\
-&nbsp;&nbsp;&nbsp;&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;{\
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;username: String,\
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;email: String,\
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;password: String,\
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;imgPath: { type: String, default: 'project/public/images/wireframe.png' },\
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;decksId: [{ type: Schema.Types.ObjectId, ref: 'Deck' }]\
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}\
+&nbsp;&nbsp;&nbsp;&nbsp;}\
 Deck model
   {
     title: { type: String, required: true, unique: true },
