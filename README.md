@@ -28,7 +28,7 @@ https://wireframepro.mockflow.com/view/Ma9f049c5e2ef4f1452e77725e0e4fb0916021664
 https://api.magicthegathering.io
 
 # Structure
-project2/
+project2/\
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|── .gitignore
 	|── .env
 	|── app.js
