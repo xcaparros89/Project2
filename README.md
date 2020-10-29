@@ -75,11 +75,12 @@ MethodRouteDescriptionRequest - BodyGET/Main page route. Renders home index view
 # Models
 User model\
 &nbsp;&nbsp;&nbsp;&nbsp;{\
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;username: String,\
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;email: String,\
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;password: String,\
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;imgPath: { type: String, default: 'project/public/images/wireframe.png' },\
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;decksId: [{ type: Schema.Types.ObjectId, ref: 'Deck' }]\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;username: {type: String, require: true},\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;email: {type: String, require: true},\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;password: {type: String, require: true},\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;decksId: { type: [String]},\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;userCards: {type: [{cardId: String, count: Number}]},\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;profileImg: {type: String, default: 'images/defaultAvatar.png'}\
 &nbsp;&nbsp;&nbsp;&nbsp;}\
 \
 Deck model\
@@ -90,8 +91,6 @@ Deck model\
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sideboard: {type: [{cardId: String, count: Number}], require: true},\
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;likes: {type: [String]}\
 &nbsp;&nbsp;&nbsp;&nbsp;}\
-\
-
 
 # Links
 GitHub
