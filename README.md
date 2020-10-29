@@ -29,7 +29,7 @@ https://api.magicthegathering.io
 
 # Structure
 project2/
-	|── .gitignore
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|── .gitignore
 	|── .env
 	|── app.js
 	|── README.md
