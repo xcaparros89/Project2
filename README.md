@@ -35,7 +35,7 @@ project2/
 ​	|── .env
 
 ​	|── app.js
-​        ├── readme.md
+​		|── README.md
 ​        ├── bin
 ​        │   ├── seeds.js
 ​        │   └── www
