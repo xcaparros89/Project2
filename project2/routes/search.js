@@ -59,11 +59,19 @@ router.post("/search/card", async (req, res, next) => {
 
 router.post("/search/card/:id", async (req, res, next) => {
     try {
-      let collection = [{id:req.params.id, owned: req.body.owned}];
+      let newCard = true;
+      let collection = req.session.currentUser.userCards.map(card=>{
+        if(card.cardId == req.params.id){
+          newCard = false;
+          return {cardId:req.params.id, count: req.body.owned}
+        }
+        return card
+      })
+      if(newCard){
+        collection = [...collection, {cardId:req.params.id, count: req.body.owned}];
+      }
       console.log(collection)
-      await User.findByIdAndUpdate(req.session.currentUser._id, {userCards: [{card:req.params.id, owned: req.body.owned}]});
-      //we need to update the user that is connected right now =>  findAndUpdate({id:sdfsdfsdf}, {userCards = [...userCards, {id, owned}]}
-      //let user = await User.find({_id:id});
+      await User.findByIdAndUpdate(req.session.currentUser._id, {userCards: collection});
       console.log(req.session.currentUser)
       res.render("search/card", { resultSearch });
     } catch (err) {
