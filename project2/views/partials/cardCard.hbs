@@ -1,6 +1,7 @@
 <!-- partials/card.hbs -->
 <div class="col-6 col-sm-6 col-md-4 col-lg-3 p-3">
     <img class="d-block mx-auto" src="{{image_uris.png}}" alt="{{name}}">
+    {{#if logged}}
     <div class="row">
         <div class="col-12 text-center">
             <form action='/search/card/{{_id}}' method='post'> {{!-- only render this if the user is logged --}}
@@ -9,4 +10,5 @@
             </form>
         </div>
     </div>
+    {{/if}}
 </div>

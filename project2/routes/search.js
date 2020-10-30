@@ -13,9 +13,6 @@ router.get("/search/card", function (req, res, next) {
 });
 
 router.post("/search/card", async (req, res, next) => {
-  if(req.session.currentUser){
-    res.locals.isLogged = true;
-  }
 
   const { name, set_name, rarity, legality, type, subtype, colors } = req.body;
   const paramsObj = {};
@@ -56,8 +53,17 @@ router.post("/search/card", async (req, res, next) => {
     let regex2 = new RegExp(regex + ".*", "gi");
     paramsObj.type_line = regex2;
   }
+
     try {
       resultSearch = await Card.find(paramsObj);
+      if(req.session.currentUser) {
+        res.locals.isLogged = true;
+      }
+
+      resultSearch.forEach(card => {
+        card.logged = res.locals.isLogged;
+      });
+
       res.render("search/card", { resultSearch });
     } catch (err) {
       console.log(err);
@@ -65,6 +71,9 @@ router.post("/search/card", async (req, res, next) => {
 });
 
 router.post("/search/card/:id", async (req, res, next) => {
+  if(req.session.currentUser) {
+    res.locals.isLogged = true;
+  }
     try {
       let newCard = true;
       let collection = [...req.session.currentUser.userCards, ...addedCards];
