@@ -1,6 +1,9 @@
 var express = require("express");
 const Card = require("../models/Card");
 const User = require("../models/User");
+
+const colors = require('colors');
+
 var router = express.Router();
 let resultSearch = '';
 let addedCards = [];
@@ -74,6 +77,10 @@ router.post("/search/card/:id", async (req, res, next) => {
       }
       console.log(collection)
       await User.findByIdAndUpdate(req.session.currentUser._id, {userCards: collection});
+
+      const card = await Card.findOne({_id: req.params.id})
+      res.locals.addedMessage = req.body.owned + " " + card.name + " has been added to your collection."
+      res.locals.cardAdded = true;
       res.render("search/card", { resultSearch });
     } catch (err) {
       console.log(err);
