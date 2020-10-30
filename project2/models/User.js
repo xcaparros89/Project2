@@ -7,7 +7,7 @@ const userSchema = new Schema(
     email: {type: String, require: true},
     password: {type: String, require: true},
     decksId: { type: [String]},
-    userCards: {type: [{cardId: String, count: Number}]},
+    userCards: [{_id: {type:Schema.Types.ObjectId, ref:'Card'}, count: Number}],
     profileImg: {type: String, default: 'images/defaultAvatar.png'}
   },
   {

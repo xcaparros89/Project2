@@ -18,12 +18,21 @@
             <li class="nav-item">
               <a href="/" class="nav-link">Home</a>
             </li>
+            {{#if isLogged}}
+            <li class="nav-item">
+              <a href="/profile" class="nav-link">My collection</a>
+            </li>
+            <li class="nav-item">
+              <a href="/login" class="nav-link">Log off</a>
+            </li>
+            {{else}}
             <li class="nav-item">
               <a href="/login" class="nav-link">Login</a>
             </li>
             <li class="nav-item">
               <a href="/signup" class="nav-link">Signup</a>
             </li>
+            {{/if}}
             <li class="nav-item">
               <a href="/search/deck" class="nav-link">Explore Decks</a>
             </li>

@@ -3,6 +3,7 @@ const Card = require("../models/Card");
 const User = require("../models/User");
 var router = express.Router();
 let resultSearch = '';
+let addedCards = [];
 
 router.get("/search/card", function (req, res, next) {
   res.render("search/card");
@@ -50,7 +51,6 @@ router.post("/search/card", async (req, res, next) => {
   }
     try {
       resultSearch = await Card.find(paramsObj);
-      console.log(resultSearch)
       res.render("search/card", { resultSearch });
     } catch (err) {
       console.log(err);
@@ -61,18 +61,18 @@ router.post("/search/card/:id", async (req, res, next) => {
     try {
       let newCard = true;
       let collection = req.session.currentUser.userCards.map(card=>{
-        if(card.cardId == req.params.id){
+        if(card._id == req.params.id){
           newCard = false;
-          return {cardId:req.params.id, count: req.body.owned}
+          return {_id:req.params.id, count: req.body.owned}
         }
         return card
       })
       if(newCard){
-        collection = [...collection, {cardId:req.params.id, count: req.body.owned}];
+        addedCards = [...addedCards, {_id:req.params.id, count: req.body.owned}]
+        collection = [...collection, ...addedCards];
       }
       console.log(collection)
       await User.findByIdAndUpdate(req.session.currentUser._id, {userCards: collection});
-      console.log(req.session.currentUser)
       res.render("search/card", { resultSearch });
     } catch (err) {
       console.log(err);
