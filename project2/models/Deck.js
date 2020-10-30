@@ -3,9 +3,11 @@ const Schema = mongoose.Schema;
 
 const deckSchema = new Schema(
   {
-    username: {type: String, require: true},
-    email: {type: String, require: true},
-    password: {type: String, require: true},
+    name: {type: String, require: true},
+    authorId: {type: String, require: true},
+    mainCards: {type: [{cardId: String, count: Number}], require: true}, // Min 60 No more than 4 of each excepting basic lands
+    sideboard: {type: [{cardId: String, count: Number}], require: true}, // Max 15
+    likes: {type: [String]}
   },
   {
     timestamps: true,
