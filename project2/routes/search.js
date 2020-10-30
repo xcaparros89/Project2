@@ -85,6 +85,69 @@ router.post("/search/card/:id", async (req, res, next) => {
     } catch (err) {
       console.log(err);
     }
+  });
+  
+let newDeck = {};
+
+router.post('/makeDeck', function (req,res,next){
+  newDeck.title = req.body.title; newDeck.description = req.body.description;
+  res.render('makeDeck', {newDeck});
+});
+
+
+router.post('/makeDeck/search', async (req,res,next)=>{
+  const { name, set_name, rarity, legality, type, subtype, colors } = req.body;
+  const paramsObj = {};
+  if (name) paramsObj.name = new RegExp(name.trim(), "i");
+  if (set_name) paramsObj.set_name = new RegExp(set_name.trim(), "i");
+  if (rarity) paramsObj.set_name = new RegExp(rarity.trim(), "i");
+  if (legality) paramsObj[`legalities.${legality}`] = "legal";
+  if (colors) {
+    let colorsArr = colors
+      .trim()
+      .split(",")
+      .join("")
+      .split(" ")
+      .map((color) => {
+        if (color === "red" || color === "Red" || color === "RED") return "R";
+        if (color === "blue" || color === "Blue" || color === "BLUE")
+          return "U";
+        if (color === "white" || color === "White" || color === "WHITE")
+          return "W";
+        if (color === "green" || color === "Green" || color === "GREEN")
+          return "G";
+        if (color === "black" || color === "Black" || color === "BLACK")
+          return "B";
+      })
+      .sort();
+    paramsObj.colors = colorsArr;
+  }
+  if (type || subtype) {
+    let regex = "";
+    let totalTypeArr = [];
+    if (type) totalTypeArr = [...type.trim().split(",").join("").split(" ")];
+    if (subtype)
+      totalTypeArr = [
+        ...totalTypeArr,
+        ...subtype.trim().split(",").join("").split(" "),
+      ];
+    totalTypeArr.forEach((el) => (regex += `(?=.*\\b${el}\\b)`));
+    let regex2 = new RegExp(regex + ".*", "gi");
+    paramsObj.type_line = regex2;
+  }
+    try {
+      newDeck.results = await Card.find(paramsObj);
+      res.render("makeDeck", { newDeck });
+    } catch (err) {
+      console.log(err);
+    }
+});
+
+
+router.post("/search/cardForDeck/:id", async (req, res, next) => {
+  newDeck.cards = [{id:req.params.id, count:req.body.count, place:req.body.place}, {id:req.params.id, count:req.body.count, place:req.body.place}];
+  console.log(newDeck)
+    res.render("makeDeck", { newDeck });
 });
 
 router.get("/deck", function (req, res, next) {
