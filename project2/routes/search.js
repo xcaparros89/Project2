@@ -13,6 +13,10 @@ router.get("/search/card", function (req, res, next) {
 });
 
 router.post("/search/card", async (req, res, next) => {
+  if(req.session.currentUser){
+    res.locals.isLogged = true;
+  }
+
   const { name, set_name, rarity, legality, type, subtype, colors } = req.body;
   const paramsObj = {};
   if (name) paramsObj.name = new RegExp(name.trim(), "i");
