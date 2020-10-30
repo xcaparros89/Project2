@@ -1,6 +1,7 @@
 <h1>Profile</h1>
     <div>
-        {{#each user}}
-        {{count}}
+        {{#each userCards}}
+        <img src='{{_id.image_uris.png}}'>
+        <p>X {{count}}</p>
         {{/each}}
     </div>

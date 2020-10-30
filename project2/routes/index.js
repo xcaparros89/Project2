@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-
+const User = require("../models/User");
 const Card = require('../models/Card');
 
 /* GET home page. */
@@ -20,8 +20,17 @@ router.use(['/profile'], (req, res, next) => { // Todo lo que esta dentro del Ar
   }
 });
 
-router.get("/profile", function (req, res, next) {
-  res.render("profile", {user: req.session.currentUser});
+router.get("/profile", async function (req, res, next) {
+  try {
+    
+    let userPopulated = await User.findOne(req.session.currentUser.id).populate('userCards._id');
+    let userCards = userPopulated.userCards;
+    console.log('cards', userCards);
+    res.render("profile", {userCards});
+
+  } catch (error) {
+    console.log(error)
+  }
 });
 
 module.exports = router;

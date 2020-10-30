@@ -60,7 +60,8 @@ router.post("/search/card", async (req, res, next) => {
 router.post("/search/card/:id", async (req, res, next) => {
     try {
       let newCard = true;
-      let collection = req.session.currentUser.userCards.map(card=>{
+      let collection = [...req.session.currentUser.userCards, ...addedCards];
+      collection = req.session.currentUser.userCards.map(card=>{
         if(card._id == req.params.id){
           newCard = false;
           return {_id:req.params.id, count: req.body.owned}
