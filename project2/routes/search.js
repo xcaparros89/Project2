@@ -225,6 +225,15 @@ router.get('/makeDeck/save',async (req,res,next)=>{
   //sha de guardar com a deck i a user com a string
   // Deck.find()
   // await User.findByIdAndUpdate(req.session.currentUser._id, {deck: collection});
+  await Deck.create({ 
+    title: newDeck.title,
+    description: newDeck.description,
+    authorId: req.session.currentUser._id,
+    mainCards: newDeck.cards.main,
+    sideboard: newDeck.cards.side,
+    likes: []
+  });
+  res.redirect("/");
 })
 
 

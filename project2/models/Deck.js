@@ -3,7 +3,8 @@ const Schema = mongoose.Schema;
 
 const deckSchema = new Schema(
   {
-    name: {type: String, require: true},
+    title: {type: String, require: true},
+    description: {type: String, require: true},
     authorId: {type: String, require: true},
     mainCards: {type: [{cardId: String, count: Number}], require: true}, // Min 60 No more than 4 of each excepting basic lands
     sideboard: {type: [{cardId: String, count: Number}], require: true}, // Max 15
