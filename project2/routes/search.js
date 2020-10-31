@@ -3,8 +3,11 @@ const Card = require("../models/Card");
 const User = require("../models/User");
 
 const colors = require('colors');
+const Deck = require("../models/Deck");
 
 var router = express.Router();
+
+//Search cards
 let resultSearch = '';
 let addedCards = [];
 
@@ -99,14 +102,14 @@ router.post("/search/card/:id", async (req, res, next) => {
       console.log(err);
     }
   });
-  
+
+//Make new deck
 let newDeck = {};
 
 router.post('/makeDeck', function (req,res,next){
   newDeck.title = req.body.title; newDeck.description = req.body.description;
   res.render('makeDeck', {newDeck});
 });
-
 
 router.post('/makeDeck/search', async (req,res,next)=>{
   const { name, set_name, rarity, legality, type, subtype, colors } = req.body;
@@ -156,16 +159,77 @@ router.post('/makeDeck/search', async (req,res,next)=>{
     }
 });
 
-
-router.post("/search/cardForDeck/:id", async (req, res, next) => {
-  newDeck.cards = [{id:req.params.id, count:req.body.count, place:req.body.place}, {id:req.params.id, count:req.body.count, place:req.body.place}];
-  console.log(newDeck)
+router.post("/search/cardForDeck/:id", (req, res, next) => {
+  if(!newDeck.cards)newDeck.cards={main:[], side:[], undecided:[]};
+  let newCard = newDeck.results.find(card=> card._id == req.params.id)
+  console.log(req.params.id)
+  console.log(newDeck.cards);
+  newDeck.cards[req.body.place] = [...newDeck.cards[req.body.place], {card:newCard, count:req.body.count}];
     res.render("makeDeck", { newDeck });
 });
 
-router.get("/deck", function (req, res, next) {
-  res.render("search/deck");
+router.post('/makeDeck/modify/main/:id', (req,res,next)=>{
+  newDeck.cards.main = newDeck.cards.main.map(cardObj=> cardObj.card._id == req.params.id? {...cardObj, count:req.body.count} : cardObj);
+  res.render("makeDeck", { newDeck });
 });
+
+router.post('/makeDeck/modify/side/:id', (req,res,next)=>{
+  newDeck.cards.side= newDeck.cards.side.map(cardObj=> cardObj.card._id == req.params.id? {...cardObj, count:req.body.count} : cardObj);
+  res.render("makeDeck", { newDeck });
+});
+
+router.post('/makeDeck/modify/undecided/:id', (req,res,next)=>{
+  newDeck.cards.undecided = newDeck.cards.undecided.map(cardObj=>cardObj.card._id == req.params.id? {...cardObj, count:req.body.count} : cardObj);
+  res.render("makeDeck", { newDeck });
+});
+
+router.post('/makeDeck/move/main/:id', (req,res,next)=>{
+  let movedCard = newDeck.cards.main.find(cardObj=> cardObj.card._id == req.params.id);
+  newDeck.cards.main = newDeck.cards.main.filter(cardObj=> cardObj.card._id != req.params.id);
+  newDeck.cards[req.body.place] = [...newDeck.cards[req.body.place], movedCard];
+  res.render("makeDeck", { newDeck });
+});
+
+router.post('/makeDeck/move/side/:id', (req,res,next)=>{
+  let movedCard = newDeck.cards.side.find(cardObj=> cardObj.card._id == req.params.id);
+  newDeck.cards.side = newDeck.cards.side.filter(cardObj=> cardObj.card._id != req.params.id);
+  newDeck.cards[req.body.place] = [...newDeck.cards[req.body.place], movedCard];
+  res.render("makeDeck", { newDeck });
+});
+
+router.post('/makeDeck/move/undecided/:id', (req,res,next)=>{
+  let movedCard = newDeck.cards.undecided.find(cardObj=> cardObj.card._id == req.params.id);
+  newDeck.cards.undecided = newDeck.cards.undecided.filter(cardObj=> cardObj.card._id != req.params.id);
+  newDeck.cards[req.body.place] = [...newDeck.cards[req.body.place], movedCard];
+  res.render("makeDeck", { newDeck });
+});
+
+router.get('/makeDeck/delete/main/:id', (req,res,next)=>{
+  newDeck.cards.main = newDeck.cards.main.filter(cardObj=> cardObj.card._id != req.params.id);
+  res.render("makeDeck", { newDeck });
+});
+
+router.get('/makeDeck/delete/side/:id', (req,res,next)=>{
+  newDeck.cards.side = newDeck.cards.side.filter(cardObj=> cardObj.card._id != req.params.id);
+  res.render("makeDeck", { newDeck });
+});
+
+router.get('/makeDeck/delete/undecided/:id', (req,res,next)=>{
+  newDeck.cards.undecided = newDeck.cards.undecided.filter(cardObj=> cardObj.card._id != req.params.id);
+  res.render("makeDeck", { newDeck });
+});
+
+
+router.get('/makeDeck/save',async (req,res,next)=>{
+  //user.findandUpdate els mazos
+  //sha de guardar com a deck i a user com a string
+  // Deck.find()
+  // await User.findByIdAndUpdate(req.session.currentUser._id, {deck: collection});
+})
+
+
+
+router.get("/deck", function (req, res, next) {res.render("search/deck");});
 
 router.post("/deck", async (req, res, next) => {
   // validamos los datos que vienen del formulario
@@ -173,7 +237,6 @@ router.post("/deck", async (req, res, next) => {
   let search = async (searchParams) => {
     try {
       const results = await mtg.card.where(searchParams);
-      console.log(results);
     } catch (err) {
       console.log(err);
     }
