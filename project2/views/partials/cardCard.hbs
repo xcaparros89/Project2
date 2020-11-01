@@ -1,11 +1,6 @@
 <!-- partials/card.hbs -->
 <article class="col-xs-6 col-sm-4 col-md-3 box features-item thumbnail-100" data-toggle="modal" data-target="#shop-modal">
     <img class="features-img" src="{{image_uris.png}}" alt="{{name}}" data-id="{{_id}}" data-name="{{name}}" data-img="{{image_uris.png}}" data-type="{{type_line}}" data-power="{{power}}" data-toughness="{{toughness}}" data-buy="https://www.cardmarket.com/es/Magic/Products/Search?searchString={{name}}" data-setname="{{set_name}}">
-        {{#if res.locals.isLogged}}
-    <p>User is Logged</p>
-    {{else}}
-    <p>User is NOT Logged</p>
-    {{/if}}
 </article>
 
 <!-- Modal -->
@@ -35,7 +30,7 @@
                 </ul>
             </div>
             <div class="modal-footer pattern">
-            {{#if isLogged}}
+            {{#if logged}}
               <form id="addCardForm" class="contact-form" action='' method='post'>
                   <input type="number" name="owned" value="1" min="1" style="max-width: 45px; margin:0 auto;"/>
                   <a href="javascript:$('#addCardForm').submit();"  class="button-game">
