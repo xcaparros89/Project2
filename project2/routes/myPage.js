@@ -7,14 +7,14 @@ const colors = require('colors');
 
 var router = express.Router();
 
-// router.use((req, res, next) => { // Todo lo que esta dentro del Array es protected.
-//     // if hay un usuario en sesión (si está logged in)
-//     if (req.session.currentUser) {
-//       next();
-//     } else {
-//       res.redirect("/login");
-//     }
-//   });
+router.use((req, res, next) => { // Todo lo que esta dentro del Array es protected.
+    // if hay un usuario en sesión (si está logged in)
+    if (req.session.currentUser) {
+      next();
+    } else {
+      res.redirect("/login");
+    }
+  });
   
   //Profile
   router.get("/profile", async function (req, res, next) {
@@ -175,7 +175,7 @@ router.get('/makeDeck/save',async (req,res,next)=>{
         });
     }
     currentDeck='';
-    newDeck = ''; //new deck comença amb les cartes de l'ultim deck, haurien de desapareixer gracies a aquesta linia
+    newDeck = ''; 
     res.redirect("/myDecks");
 })
 

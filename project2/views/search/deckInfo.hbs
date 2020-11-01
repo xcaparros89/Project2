@@ -1,0 +1,33 @@
+<h1>{{deck.title}}</h1>
+<form action='/deckInfo/like' method='GET'>
+    <p>Likes: {{likes}}</p><button type='submit'>Like</button>
+</form>
+<form action='/deckInfo/dislike' method='GET'>
+    <p>Dislikes: {{dislikes}}</p><button type='submit'>Dislike</button>
+</form>
+
+<p>{{deck.description}}</p>
+<div>
+    <p>Main deck</p>
+    {{#each deck.mainCards}}
+    <p>{{count}} X {{card.name}}</p>
+    {{/each}}
+    <p>Side deck</p>
+    {{#each deck.sideboard}}
+    <p>{{count}} X {{card.name}}</p>
+    {{/each}}
+</div>
+<div>
+    <h2>Make a reply</h2>
+    <form action='/deckInfo/reply' method='POST'>
+        <input type='text' name='reply'>
+        <button type='submit'>Submit</button>
+    </form>
+</div>
+<div>
+    <h2>Replies</h2>
+    {{#each deck.replies}}
+    <p>{{message}}</p>
+    <p>{{author}}</p>
+    {{/each}}
+</div>

@@ -6,3 +6,10 @@
     <input type="params" name="params" placeholder="Params" />
     <button type="submit">Search</button>
 </form>
+<div>
+    <ul>
+    {{#each decks}}
+    <li><a href='/search/deck/{{_id}}'>{{title}}</a></li>
+    {{/each}}
+    </ul>
+</div>

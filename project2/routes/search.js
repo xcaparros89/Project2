@@ -2,12 +2,13 @@ var express = require("express");
 const Card = require("../models/Card");
 const User = require("../models/User");
 const colors = require('colors');
+const Deck = require("../models/Deck");
 var router = express.Router();
 
 let resultSearch = '';
 let addedCards = [];
 
-router.get("/search/card", function (req, res, next) {
+router.get("/search/card", (req, res, next) => {
   res.render("search/card");
 });
 
@@ -99,5 +100,48 @@ router.post("/search/card/:id", async (req, res, next) => {
     }
   });
 
+router.get('/search/deck', async (req, res, next)=>{
+  console.log(req.session.currentUser);
+  res.locals.userId = req.session.currentUser._id;
+  let decks = await Deck.find();
+  res.render('search/deck', {decks});
+});
+
+let deck;
+router.get('/search/deck/:id', async (req, res, next)=>{
+  deck = await Deck.findById(req.params.id).populate('mainCards.card').populate('sideboard.card');
+  console.log('deci', deck.likes.length);
+  res.locals.likes = deck.likes.length;
+  res.locals.dislikes = deck.dislikes.length;
+  //res.locals.likes = decks.dislikes.length;
+  res.render('search/deckInfo', {deck});
+});
+
+router.post('/deckInfo/reply', async (req,res,next)=>{
+  let newReplies = [...deck.replies, {message: req.body.reply, author:req.session.currentUser.email}];
+  console.log(newReplies);
+  await Deck.findByIdAndUpdate({_id:deck._id},{replies:newReplies});
+  res.redirect(`/search/deck/${deck._id}`);
+});
+
+router.get('/deckInfo/like', async (req,res,next)=>{
+  let newLike = false;
+  deck.likes.forEach(like=>{if(like == req.session.currentUser._id) newLike = true;});
+  if(!newLike){
+    let newLikes = [...deck.likes, req.session.currentUser._id];
+    await Deck.findByIdAndUpdate({_id:deck._id},{likes:newLikes});
+  }
+  res.redirect(`/search/deck/${deck._id}`);
+})
+
+router.get('/deckInfo/dislike', async (req,res,next)=>{
+  let newDislike = false;
+  deck.dislikes.forEach(dislike=>{if(dislike == req.session.currentUser._id) newDislike = true;});
+  if(!newDislike){
+    let newDislikes = [...deck.dislikes, req.session.currentUser._id];
+    await Deck.findByIdAndUpdate({_id:deck._id},{dislikes:newDislikes});
+  }
+  res.redirect(`/search/deck/${deck._id}`);
+})
 
 module.exports = router;
