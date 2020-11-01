@@ -6,8 +6,8 @@ const deckSchema = new Schema(
     title: {type: String, require: true},
     description: {type: String, require: true},
     authorId: {type: String, require: true},
-    mainCards: {type: [{cardId: String, count: Number}], require: true}, // Min 60 No more than 4 of each excepting basic lands
-    sideboard: {type: [{cardId: String, count: Number}], require: true}, // Max 15
+    mainCards: [{card: {type:Schema.Types.ObjectId, ref:'Card'}, count: Number}], // Min 60 No more than 4 of each excepting basic lands
+    sideboard: [{card: {type:Schema.Types.ObjectId, ref:'Card'}, count: Number}],// Max 15
     likes: {type: [String]}
   },
   {
