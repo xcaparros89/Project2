@@ -7,17 +7,19 @@ src: url("../fonts/ionicons.eot?v=2.0.1#iefix") format("embedded-opentype"), url
 font-weight: normal;
 font-style: normal; };
 
-
 .jumbotron {
 background-size: cover;
 background-position: center center;
 height: 100vh; }
 
 .jumbotron{
-    background-image: linear-gradient(rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.05)), url(../img/Dragonic.jpg);
+    background-size: cover;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.05)), url(../img/jumbotron.jpg);
     box-shadow: inset 0 -10px 70px rgba(0, 0, 0, 0.75);
-    height: 75vh;
-    background-position: 75%; }
+    height: 85vh;
+    background-position: center;
+    opacity: .7;
+}
     @media (min-width: 1200px) {
         header {
         background-attachment: fixed; } }
@@ -26,8 +28,7 @@ height: 100vh; }
         background-position: 25%; } }
     @media only screen and (min-device-width: 1024px) and (max-device-width: 1024px) and (min-device-height: 1366px) and (max-device-height: 1366px) and (min-width: 1024px) and (max-width: 1024px) {
         header {
-        background-position: 25%; }
-}
+        background-position: 25%; }}
 
 h2, h3 {
 font-weight: 300;
@@ -114,6 +115,54 @@ background-image: linear-gradient(rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.55)), url
 
 .pattern-dark {
 background-image: url(../img/dark_leather.png); }
+
+.pattern-angel {
+    background-image: linear-gradient(rgba(0,0,0,.8), rgba(0,0,0,.8)), url(../img/bg/angel.jpg); 
+    background-size: cover;
+    background-position: center center;
+}
+
+.pattern-dragon {
+    background-image: linear-gradient(rgba(0,0,0,.7), rgba(0,0,0,.7)), url(../img/bg/dragon.jpg); 
+    background-size: cover;
+    background-position: center center;
+}
+
+.pattern-rattleclaw {
+    background-image: linear-gradient(rgba(0,0,0,.7), rgba(0,0,0,.7)), url(../img/bg/rattleclaw.jpg); 
+    background-size: cover;
+    background-position: center center;
+}
+
+.pattern-serra {
+    background-image: linear-gradient(rgba(0,0,0,.8), rgba(0,0,0,.8)), url(../img/bg/serra.jpg); 
+    background-size: cover;
+    background-position: center center;
+}
+
+.pattern-soldier {
+    background-image: linear-gradient(rgba(0,0,0,.7), rgba(0,0,0,.7)), url(../img/bg/soldier.jpg); 
+    background-size: cover;
+    background-position: center center;
+}
+
+.pattern-temur {
+    background-image: linear-gradient(rgba(0,0,0,.65), rgba(0,0,0,.65)), url(../img/bg/temur-fire.png); 
+    background-size: cover;
+    background-position: center center;
+}
+
+.pattern-ugin {
+    background-image: linear-gradient(rgba(0,0,0,.8), rgba(0,0,0,.8)), url(../img/bg/ugin.jpg); 
+    background-size: cover;
+    background-position: center center;
+}
+
+.pattern-wolf {
+    background-image: linear-gradient(rgba(0,0,0,.8), rgba(0,0,0,.8)), url(../img/bg/wolf.jpg); 
+    background-size: cover;
+    background-position: center center;
+}
 
 .box {
 margin-top: 1.5rem;
@@ -1229,20 +1278,25 @@ padding-bottom: 2rem; }
     font-size: 140%; 
 }
 
-/*a style for buy card link inside modal*/
-.modalBuyA {
-    text-decoration: none;
-    color: #ad835a;
+/* Style for buy card link inside modal*/
+
+.buy-card {
+    font-family: "Cinzel Decorative", "Palatino Light", Times, Times New Roman, Georgia, serif;
+    color:#ad835a;
+    font-size: 0.7em;
+    text-align: center;
+    font-weight: 400;
+    line-height: 1.4rem;
     transition: all 0.5s ease-in-out;
 }
 
-.modalBuyA:hover {
+.buy-card:hover {
     color: #c4ae78;
     text-decoration: none;
 }
 
 .incIconSize {
-    font-size: 1.3rem;
+    font-size: 18px;
 }
 
 .modal-footer {
@@ -1253,13 +1307,3 @@ ion-icon {
     font-size:18px;
 }
 
-.buy-card {
-    font-family: "Cinzel Decorative", "Palatino Light", Times, Times New Roman, Georgia, serif;
-    color:#c4ae78;
-    font-size: 0.85em;
-    text-align: center;
-    transition: all 0.5s;
-    font-weight: 400;
-    line-height: 1.4rem;
-    margin-top: 15px;
-}

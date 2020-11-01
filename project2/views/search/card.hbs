@@ -1,6 +1,6 @@
 <!-- search/card.hbs -->
-<div class="row pattern avoidSticked">
-<div class="container-fluid pattern">
+<div class="row pattern avoidSticked" style="min-height:84vh">
+<div class="container-fluid pattern-rattleclaw">
     <div class="row">
         <div class="col-xs-12">
             <h2>Card search</h2>
@@ -33,7 +33,7 @@
 
     {{#if cardAdded}}
     <div class="row" style="margin-top: 40px auto">
-        
+        <!-- ADD CHECK ICON HERE -->
         <p class="section-description" style="text-align:center">{{addedMessage}}</p>
     </div>
     <div class="container">
@@ -41,19 +41,18 @@
         <p>&nbsp;</p>
     </div>
     </div>
-
     {{/if}}
 
     {{#if resultSearch}}
         <!-- SEARCH RESULTS -->
-        <div class="row" style="margin: 15px auto">
+        <div class="row" style="margin: 15px auto 70px auto">
             {{#each resultSearch}}
                 {{> cardCard this}}
             {{/each}}
         </div>
     {{else}}
-    <div class="container" style="min-height: 30vh">
-        <div class="col-xs-12">
+    <div class="container" style="">
+        <div class="col-xs-12" style="min-height: 38vh">
              <h3>Ready to search</h3>
              <p class="section-description" style="margin-bottom:45px">You can use and combine different types of criteria: name, type, subtype, set, legality or color.</p>
         </div>

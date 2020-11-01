@@ -8,6 +8,7 @@ router.get('/', async function(req, res, next) {
   if(req.session.currentUser) {
     res.locals.isLogged = true;
   }
+  console.log(res.locals.isLogged);
   res.render('index', { title: 'MTG Organize & Build' });
 });
 

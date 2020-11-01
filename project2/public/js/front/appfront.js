@@ -63,9 +63,14 @@ $(document).ready(function() {
         var dataModel = $(this).find('img');
         var modelfeats = $('#model-feats').find('li');
         var addCardForm = $('#addCardForm');
+        var buyCard = $('#buy-card');
+        console.log(buyCard)
 
 
         label.text(dataModel.data('name')); // Set Modal Title
+        
+        buyCard[0].innerHTML=`<a href="${dataModel.data('buy')}" class="buy-card" target="_blank" style="white-space:pre"><span class="ion-android-cart incIconSize"></span>  Buy this card</a>`;
+        
         price.text($(this).find('.item-price-caption').text());
         img.attr('src', dataModel.attr('src'));
         
@@ -91,22 +96,23 @@ $(document).ready(function() {
     /////////////////////////////////////
     //   CHANGE CLASSES RESPONSIVE     //
     /////////////////////////////////////  
-$(window).resize(function(){
-var width = $(window).width();
-if(width >= 300 && width <= 1024){
-    $('.item-1, .item-2, .item-3').removeClass('col-sm-3 col-xs-5').addClass('col-sm-5 col-xs-12');
-    $('.features-item').removeClass('col-md-3').addClass('col-md-6');
-    $('.item-3').removeClass('col-sm-offset-1').addClass('col-sm-offset-3');
-    $('.item-2').removeClass('col-xs-offset-2').addClass('col-xs-offset-0');       
-}
-else{
-    $('.item-1, .item-2, .item-3').removeClass('col-sm-5 col-xs-12').addClass('col-sm-3 col-xs-5');
-    $('.features-item').removeClass('col-md-6').addClass('col-md-3');
-    $('.item-3').removeClass('col-sm-offset-3').addClass('col-sm-offset-1');
-    $('.item-2').removeClass('col-xs-offset-0').addClass('col-xs-offset-2');        
-}
-})
-.resize();
+// $(window).resize(function(){
+// var width = $(window).width();
+// if(width >= 300 && width <= 1024){
+//     $('.item-1, .item-2, .item-3').removeClass('col-sm-3 col-xs-5').addClass('col-sm-5 col-xs-12');
+//     $('.features-item').removeClass('col-md-3').addClass('col-md-6');
+//     $('.item-3').removeClass('col-sm-offset-1').addClass('col-sm-offset-3');
+//     $('.item-2').removeClass('col-xs-offset-2').addClass('col-xs-offset-0');       
+// }
+// else{
+//     $('.item-1, .item-2, .item-3').removeClass('col-sm-5 col-xs-12').addClass('col-sm-3 col-xs-5');
+//     $('.features-item').removeClass('col-md-6').addClass('col-md-3');
+//     $('.item-3').removeClass('col-sm-offset-3').addClass('col-sm-offset-1');
+//     $('.item-2').removeClass('col-xs-offset-0').addClass('col-xs-offset-2');        
+// }
+// })
+// .resize();
+
 //trigger the resize event on page load.
 
     /////////////////////////////////////
