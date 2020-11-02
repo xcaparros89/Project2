@@ -1,46 +1,68 @@
 <!-- search/card.hbs -->
-<div class="container">
+<div class="row pattern avoidSticked" style="min-height:84vh">
+<div class="container-fluid pattern-temur">
     <div class="row">
-        <div class="col-12">
+        <div class="col-xs-12">
             <h2>Card search</h2>
         </div>
-        <div class="col-12">
-            <div>
-                <form id="form" action="/search/card" method="POST">
-                    <label for="name">Name:</label>
-                    <input type="text" name="name" />
-
-                    <label for="type">Type:</label>
-                    <input type="text" name="type" />
-
-                    <label for="subtype">Subtype:</label>
-                    <input type="text" name="subtype" />
-
-                    <label for="set_name">Set:</label>
-                    <input type="text" name="set_name" />
-
-                    <label for="legality">Legality:</label>
-                    <input type="text" name="legality" />{{!-- change type text for predefined choices --}}
-                    <label for="colors">Colors:</label>
-                    <input type="text" name="colors" />
-                    <button type="submit">Search</button>
-                </form>
-            </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <form id="form" class="contact-form" action="/search/card" method="POST">
+                <input type="text" name="name" placeholder="Name" onfocus="this.placeholder=''" onblur="this.placeholder='Name'"/>
+                <input type="text" name="type" placeholder="Type" onfocus="this.placeholder=''" onblur="this.placeholder='Type'"/>
+                <input type="text" name="subtype" placeholder="Subtype" onfocus="this.placeholder=''" onblur="this.placeholder='Subtype'"/>
+                <input type="text" name="set_name" placeholder="Set Name" onfocus="this.placeholder=''" onblur="this.placeholder='Set Name'"/>
+                <input type="text" name="legality" placeholder="Legality" onfocus="this.placeholder=''" onblur="this.placeholder='Legality'"/>{{!-- change type text for predefined choices --}}
+                <input type="text" name="colors" placeholder="Colors" onfocus="this.placeholder=''" onblur="this.placeholder='Colors'"/>
+                <a href="javascript:$('#form').submit();"  class="button-game">
+                    <span class="button-game-bg-left"></span>
+                    <span class="button-game-bg-mid">
+                        <span class="ion-search  button-game-apple"></span><span>&nbsp;&nbsp;&nbsp;Search</span>
+                    </span> 
+                    <span class="button-game-bg-right"></span>
+                </a>
+            </form>
         </div>
     </div>
+
+    <!-- ============== DIVIDER ============== -->
+    <div class="Divider">
+        <hr class="Divider-rule">
+    </div>
+
     {{#if cardAdded}}
-    <div class="row">
-        <div class="col-12 text-center p-3">
-        <svg width="1.3em" height="1.3em" viewBox="0 0 16 16" class="bi bi-check" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-            <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
-        </svg>
-        <p class="d-inline">{{addedMessage}}</p>
+    <div class="row" style="margin-top: 40px auto">
+        <!-- ADD CHECK ICON HERE -->
+        <p class="section-description" style="text-align:center">{{addedMessage}}</p>
+    </div>
+    <div class="container">
+        <div class="col-xs-12 items-container bottom-wrapper">
+        <p>&nbsp;</p>
+    </div>
+    </div>
+    {{/if}}
+
+    {{#if resultSearch}}
+        <!-- SEARCH RESULTS -->
+        <div class="row" style="margin: 15px auto 70px auto">
+            {{#each resultSearch}}
+                {{> cardCard this}}
+            {{/each}}
+        </div>
+    {{else}}
+    <div class="container" style="">
+        <div class="col-xs-12" style="min-height: 38vh">
+             <h3>Ready to search</h3>
+             <p class="section-description" style="margin-bottom:45px">You can use and combine different types of criteria: name, type, subtype, set, legality or color.</p>
         </div>
     </div>
     {{/if}}
-    <div class="row">
-        {{#each resultSearch}}
-        {{> cardCard this}}
-        {{/each}}
+
+
     </div>
 </div>
+</div>
+
+
+

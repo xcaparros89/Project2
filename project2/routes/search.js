@@ -9,12 +9,17 @@ var filter = new Filter();
 let resultSearch = '';
 let addedCards = [];
 
-router.get("/search/card", (req, res, next) => {
+router.get("/search/card", function (req, res, next) {
+  if(req.session.currentUser) {
+    res.locals.isLogged = true;
+  }
   res.render("search/card");
 });
 
 router.post("/search/card", async (req, res, next) => {
-
+  if(req.session.currentUser) {
+    res.locals.isLogged = true;
+  }
   const { name, set_name, rarity, legality, type, subtype, colors } = req.body;
   const paramsObj = {};
   if (name) paramsObj.name = new RegExp(name.trim(), "i");
