@@ -1,0 +1,17 @@
+    <h1>My decks</h1>
+    <h2>Add new deck</h2>
+    <form action="/makeDeck" method="POST">
+        <label>Title: </label><input type='text' name='title'>
+        <label>Description: </label><input type='text' name='description'>
+        <button type='submit'>Make</button>
+    </form>
+    <h2>My decks:</h2>
+    <ul>
+        {{#each myDecks}}
+            <li>
+                <p>{{title}}</p>
+                <form action="/myDecks/modify/{{_id}}" method="POST"><button>Modify deck</button></form>               
+                <form action="/myDecks/delete/{{_id}}" method="POST"><button>Delete deck</button></form>               
+            </li>
+        {{/each}}
+    </ul>

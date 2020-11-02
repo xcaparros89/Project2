@@ -1,10 +1,10 @@
 var express = require("express");
 const Card = require("../models/Card");
 const User = require("../models/User");
-
 const colors = require('colors');
-
+const Deck = require("../models/Deck");
 var router = express.Router();
+
 let resultSearch = '';
 let addedCards = [];
 
@@ -104,87 +104,49 @@ router.post("/search/card/:id", async (req, res, next) => {
       console.log(err);
     }
   });
-  
-let newDeck = {};
 
-router.post('/makeDeck', function (req,res,next){
-  newDeck.title = req.body.title; newDeck.description = req.body.description;
-  res.render('makeDeck', {newDeck});
+router.get('/search/deck', async (req, res, next)=>{
+  console.log(req.session.currentUser);
+  res.locals.userId = req.session.currentUser._id;
+  let decks = await Deck.find();
+  res.render('search/deck', {decks});
 });
 
+let deck;
+router.get('/search/deck/:id', async (req, res, next)=>{
+  deck = await Deck.findById(req.params.id).populate('mainCards.card').populate('sideboard.card');
+  console.log('deci', deck.likes.length);
+  res.locals.likes = deck.likes.length;
+  res.locals.dislikes = deck.dislikes.length;
+  //res.locals.likes = decks.dislikes.length;
+  res.render('search/deckInfo', {deck});
+});
 
-router.post('/makeDeck/search', async (req,res,next)=>{
-  const { name, set_name, rarity, legality, type, subtype, colors } = req.body;
-  const paramsObj = {};
-  if (name) paramsObj.name = new RegExp(name.trim(), "i");
-  if (set_name) paramsObj.set_name = new RegExp(set_name.trim(), "i");
-  if (rarity) paramsObj.set_name = new RegExp(rarity.trim(), "i");
-  if (legality) paramsObj[`legalities.${legality}`] = "legal";
-  if (colors) {
-    let colorsArr = colors
-      .trim()
-      .split(",")
-      .join("")
-      .split(" ")
-      .map((color) => {
-        if (color === "red" || color === "Red" || color === "RED") return "R";
-        if (color === "blue" || color === "Blue" || color === "BLUE")
-          return "U";
-        if (color === "white" || color === "White" || color === "WHITE")
-          return "W";
-        if (color === "green" || color === "Green" || color === "GREEN")
-          return "G";
-        if (color === "black" || color === "Black" || color === "BLACK")
-          return "B";
-      })
-      .sort();
-    paramsObj.colors = colorsArr;
+router.post('/deckInfo/reply', async (req,res,next)=>{
+  let newReplies = [...deck.replies, {message: req.body.reply, author:req.session.currentUser.username}];
+  console.log(newReplies);
+  await Deck.findByIdAndUpdate({_id:deck._id},{replies:newReplies});
+  res.redirect(`/search/deck/${deck._id}`);
+});
+
+router.get('/deckInfo/like', async (req,res,next)=>{
+  let newLike = false;
+  deck.likes.forEach(like=>{if(like == req.session.currentUser._id) newLike = true;});
+  if(!newLike){
+    let newLikes = [...deck.likes, req.session.currentUser._id];
+    await Deck.findByIdAndUpdate({_id:deck._id},{likes:newLikes});
   }
-  if (type || subtype) {
-    let regex = "";
-    let totalTypeArr = [];
-    if (type) totalTypeArr = [...type.trim().split(",").join("").split(" ")];
-    if (subtype)
-      totalTypeArr = [
-        ...totalTypeArr,
-        ...subtype.trim().split(",").join("").split(" "),
-      ];
-    totalTypeArr.forEach((el) => (regex += `(?=.*\\b${el}\\b)`));
-    let regex2 = new RegExp(regex + ".*", "gi");
-    paramsObj.type_line = regex2;
+  res.redirect(`/search/deck/${deck._id}`);
+})
+
+router.get('/deckInfo/dislike', async (req,res,next)=>{
+  let newDislike = false;
+  deck.dislikes.forEach(dislike=>{if(dislike == req.session.currentUser._id) newDislike = true;});
+  if(!newDislike){
+    let newDislikes = [...deck.dislikes, req.session.currentUser._id];
+    await Deck.findByIdAndUpdate({_id:deck._id},{dislikes:newDislikes});
   }
-    try {
-      newDeck.results = await Card.find(paramsObj);
-      res.render("makeDeck", { newDeck });
-    } catch (err) {
-      console.log(err);
-    }
-});
-
-
-router.post("/search/cardForDeck/:id", async (req, res, next) => {
-  newDeck.cards = [{id:req.params.id, count:req.body.count, place:req.body.place}, {id:req.params.id, count:req.body.count, place:req.body.place}];
-  console.log(newDeck)
-    res.render("makeDeck", { newDeck });
-});
-
-router.get("/deck", function (req, res, next) {
-  res.render("search/deck");
-});
-
-router.post("/deck", async (req, res, next) => {
-  // validamos los datos que vienen del formulario
-  let searchParams = { types: req.body.params };
-  let search = async (searchParams) => {
-    try {
-      const results = await mtg.card.where(searchParams);
-      console.log(results);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-  search(searchParams);
-  res.redirect("/");
-});
+  res.redirect(`/search/deck/${deck._id}`);
+})
 
 module.exports = router;

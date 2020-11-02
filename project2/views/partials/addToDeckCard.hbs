@@ -4,7 +4,7 @@
     <div class="row">
         <div class="col-12 text-center">
             <form action='/search/cardForDeck/{{_id}}' method='post'> {{!-- only render this if the user is logged --}}
-                <input name='count' type="number" value="1" min="0" class="m-2" style="display: inline; max-width:40px">
+                <input name='count' type="number" value="1" min="1" class="m-2" style="display: inline; max-width:40px">
                  <label for="place">Add in:</label>
                 <select name="place" id="place">
                 <option value="main">Main deck</option>

@@ -18,7 +18,8 @@ const MongoStore = require('connect-mongo')(session)
 mongoose
   .connect('mongodb://localhost/MTG', {
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    useFindAndModify: false
   })
   .then(x => {
     console.log(
@@ -32,7 +33,7 @@ mongoose
 var indexRouter = require('./routes/index');
 var authRouter = require("./routes/auth");
 var searchRouter = require("./routes/search");
-var userRouter = require('./routes/user');
+var myPageRouter = require('./routes/myPage');
 
 var app = express();
 
@@ -67,7 +68,8 @@ app.use(session({
 
 app.use("/", authRouter);
 app.use('/', indexRouter);
-app.use('/', searchRouter)
+app.use('/', searchRouter);
+app.use('/', myPageRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

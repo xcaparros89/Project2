@@ -14,15 +14,15 @@ router.get("/signup", function (req, res, next) {
 
 router.post("/signup", async (req, res, next) => {
   // validamos los datos que vienen del formulario
-  if (req.body.email === "" || req.body.password === "") {
+  if (req.body.username === "" || req.body.email === "" || req.body.password === "") {
     res.render("auth/signup", {
-      errorMessage: "Indicate a username and a password to sign up",
+      errorMessage: "Indicate a username, email and a password to sign up",
     });
     return;
   }
 
   // desestructuramos el email y el password de req.body
-  const { email, password } = req.body;
+  const { username, email, password } = req.body;
 
   // creamos la salt y hacemos hash del password
   const salt = bcrypt.genSaltSync(10);
@@ -39,7 +39,16 @@ router.post("/signup", async (req, res, next) => {
       return;
     }
 
+    const repeatedUser = await User.findOne({ username: username });
+    // si existiera en la base de datos, renderizamos la vista de auth/signup con un mensaje de error
+    if (repeatedUser !== null) {
+      res.render("auth/signup", {
+        errorMessage: "The username already exists!",
+      });
+      return;
+    }
     await User.create({
+      username,
       email,
       password: hashPass,
     });
@@ -55,22 +64,22 @@ router.get("/login", (req, res, next) => {
 
 router.post("/login", async (req, res, next) => {
   // validamos los datos que vienen del formulario
-  if (req.body.email === "" || req.body.password === "") {
+  if (req.body.username === "" || req.body.password === "") {
     res.render("auth/login", {
       errorMessage: "Indicate a username and a password to login",
     });
     return;
   }
 
-  const { email, password } = req.body;
+  const { username, password } = req.body;
 
   try {
     // validar si el usuario existe en la BD
-    const user = await User.findOne({ email: email });
-    console.log(user);
+    console.log('username', username)
+    const user = await User.findOne({ $or: [{username:username }, {email:username}]});
     if (!user) {
       res.render("auth/login", {
-        errorMessage: "The email doesn't exist",
+        errorMessage: "The username doesn't exist",
       });
       return;
     }
@@ -78,6 +87,7 @@ router.post("/login", async (req, res, next) => {
     if (bcrypt.compareSync(password, user.password)) {
       // guardar el usuario en la session
       req.session.currentUser = user;
+      console.log(user)
       res.redirect("/");
     } else {
       res.render("auth/login", {
