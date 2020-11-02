@@ -27,7 +27,7 @@
                     <li class="plain-link"><a href="/search/card" class="nav-link"><span class="ion-search" style="font-size:18px"></span>&nbsp;&nbsp;Search Cards</a></li>
                     <li class="plain-link"><a href="/search/deck" class="nav-link"><span class="ion-social-buffer" style="font-size:18px"></span>&nbsp;&nbsp;Explore Decks</a></li>
                     {{#if isLogged}}
-                    <li class="plain-link"><a href="/profile" class="nav-link"><span class="ion-folder" style="font-size:18px"></span>&nbsp;&nbsp;My Collection</a></li>
+                    <li class="plain-link"><a href="/mycollection" class="nav-link"><span class="ion-folder" style="font-size:18px"></span>&nbsp;&nbsp;My Collection</a></li>
                     <li class="plain-link"><a href="/logout" class="nav-link"><span class="ion-log-out" style="font-size:17px"></span>&nbsp;&nbsp;Log out</a></li>
                     {{else}}
                     <li class="plain-link"><a href="/login" class="nav-link"><span class="ion-log-in" style="font-size:17px"></span>&nbsp;&nbsp;Log in</a></li>
@@ -39,20 +39,41 @@
     </nav>
     <!-- ============== BODY ============== -->
     {{{body}}}
-    <!-- ============== DIVIDER ============== -->
-    <div class="Divider" style="margin-top:-55px">
-        <hr class="Divider-rule">
-    </div>
     <!-- ============== FOOTER =============== -->
-    <div class="row pattern-dark" style="height:16vh">
+
+    
+    <!-- ============== DIVIDER ============== -->
+    <div class="row pattern-dark" style="min-height: 15vh">
+        <div class="Divider">
+            <hr class="Divider-rule">
+        </div>
+        <div class="container">
+            <div class="col-xs-12 footer-row">
+                <p>&#128736;&#65039;&nbsp;&nbsp;by Xavier Caparros & Oscar Mellado for Ironhack</p>
+            </div>
+        </div>
+
+    </div>
+
+
+    {{!-- <div class="row pattern-dark" style="height:10vh">
         <footer class="container footer">
             <div class="row">
                 <div class="col-xs-12">
-
                 </div>
             </div>
         </footer>
-    </div>
+    </div> --}}
+    {{!-- <div class="row pattern-dark" style="height:5vh">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h2>Card search</h2>
+                </div>
+            </div>
+        </div>
+    </div> --}}
+
 
     <!-- ============== SCRIPTS =============== -->
     <script src="/js/front/jquery-1.12.4.min.js"></script>

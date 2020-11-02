@@ -10,6 +10,7 @@ var router = express.Router();
 router.use((req, res, next) => { // Todo lo que esta dentro del Array es protected.
     // if hay un usuario en sesión (si está logged in)
     if (req.session.currentUser) {
+      res.locals.isLogged = true;
       next();
     } else {
       res.redirect("/login");
@@ -33,6 +34,9 @@ router.use((req, res, next) => { // Todo lo que esta dentro del Array es protect
 
   //My cards
   router.get("/myCollection", async function (req, res, next) {
+    if(req.session.currentUser) {
+      res.locals.isLogged = true;
+    }
     try {
       let userPopulated = await User.findById(req.session.currentUser._id).populate('userCards._id');
       let userCards = userPopulated.userCards;
