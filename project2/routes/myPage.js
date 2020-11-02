@@ -107,17 +107,19 @@ router.post("/search/cardForDeck/:id", (req, res, next) => {
     res.render("myPage/makeDeck", { newDeck });
 });
 
+router.post('/makeDeck/modify/text', (req,res,next)=>{
+  newDeck.title = filter.clean(req.body.title); 
+  newDeck.description = filter.clean(req.body.description);
+  res.render("myPage/makeDeck", { newDeck });
+});
+
 router.post('/makeDeck/modify/main/:id', (req,res,next)=>{
-  console.log('before', newDeck.cards.main)
   newDeck.cards.main = newDeck.cards.main.map(cardObj=> cardObj.card._id == req.params.id? {...cardObj, count:req.body.count} : cardObj);
-  console.log('after', newDeck.cards.main)
   res.render("myPage/makeDeck", { newDeck });
 });
 
 router.post('/makeDeck/modify/side/:id', (req,res,next)=>{
-  console.log('before', newDeck.cards.side)
   newDeck.cards.side= newDeck.cards.side.map(cardObj=> cardObj.card._id == req.params.id? {...cardObj, count:req.body.count} : cardObj);
-  console.log('after', newDeck.cards.side)
   res.render("myPage/makeDeck", { newDeck });
 });
 
@@ -182,7 +184,7 @@ router.get('/makeDeck/save',async (req,res,next)=>{
     mistakes = ''; // uncomment this line is to have the validation for number of cards in deck, 4 of a kind...
     if(!mistakes){
     if(currentDeck){
-      await Deck.findByIdAndUpdate({_id: currentDeck}, {mainCards: newDeck.cards.main, sideboard: newDeck.cards.side, legalities:legalities, colors:[...colors]});
+      await Deck.findByIdAndUpdate({_id: currentDeck}, {mainCards: newDeck.cards.main, sideboard: newDeck.cards.side, legalities:legalities, colors:[...colors], title:newDeck.title, description: newDeck.description});
     }else{
       await Deck.create({ 
           title: newDeck.title,
