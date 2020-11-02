@@ -1,4 +1,5 @@
 var express = require("express");
+const Filter = require('bad-words');
 const Card = require("../models/Card");
 const User = require("../models/User");
 const Deck = require("../models/Deck");
@@ -6,6 +7,7 @@ const Deck = require("../models/Deck");
 const colors = require('colors');
 
 var router = express.Router();
+var filter = new Filter();
 
 router.use((req, res, next) => { // Todo lo que esta dentro del Array es protected.
     // if hay un usuario en sesión (si está logged in)
@@ -48,9 +50,7 @@ router.use((req, res, next) => { // Todo lo que esta dentro del Array es protect
 let newDeck = {};
 let currentDeck; //used when modifiying decks
 router.post('/makeDeck', function (req,res,next){
-  newDeck='';
-  console.log(newDeck);
-  newDeck.title = req.body.title; newDeck.description = req.body.description;
+  newDeck={title: filter.clean(req.body.title), description: filter.clean(req.body.description)}
   res.render('myPage/makeDeck', {newDeck});
 });
 
@@ -167,17 +167,26 @@ router.get('/makeDeck/delete/undecided/:id', (req,res,next)=>{
 });
 
 router.get('/makeDeck/save',async (req,res,next)=>{
-  console.log('save', newDeck.cards);
-  console.log('save,main', newDeck.cards.main);
-  console.log('save,main,card', newDeck.cards.main.card);
-    newDeck.cards.main = newDeck.cards.main.map(cardObj=>{return {card: cardObj.card._id, count: cardObj.count};});
+  let mistakes = '';
+  let colors = [];
+  let legalities = ['standard', 'future', 'historic', 'pioneer', 'modern', 'legacy', 'pauper', 'vintage', 'penny', 'commander', 'brawl', 'duel', 'oldschool'];
+  if(newDeck.cards.main.length <60) mistakes += 'The deck must have a minimum of 60 cards.';
+  if(newDeck.cards.side.length >15) mistakes += 'The side deck must have a maximum of 15 cards.'; 
+    newDeck.cards.main = newDeck.cards.main.map(cardObj=>{
+      if(cardObj.count>4 && !/Basic Land/.test(cardObj.card.type_line)){mistakes += `You cannot have more than 4 ${cardObj.card.name}.`}
+      colors = [...colors, ...cardObj.card.colors];
+      let newLegalities = [...legalities];
+      legalities.forEach(legality=>{if(cardObj.card.legalities[legality]==='not_legal')newLegalities.splice(newLegalities.indexOf(legality), 1);});
+      legalities = [...newLegalities];
+      return {card: cardObj.card._id, count: cardObj.count};
+    });
+    colors = new Set(colors);
+    console.log('legalities', legalities); console.log('mistakes', mistakes); console.log('colors',[...colors]);
     newDeck.cards.side = newDeck.cards.side.map(cardObj=>{return {card: cardObj.card._id, count: cardObj.count};});
-    console.log('save', newDeck.cards.main)
-    console.log('user', req.session.currentUser)
-    console.log(currentDeck)
+    mistakes = ''; // uncomment this line is to have the validation for number of cards in deck, 4 of a kind...
+    if(!mistakes){
     if(currentDeck){
-      console.log(await Deck.findById(currentDeck));
-      await Deck.findByIdAndUpdate({_id: currentDeck}, {mainCards: newDeck.cards.main, sideboard: newDeck.cards.side});
+      await Deck.findByIdAndUpdate({_id: currentDeck}, {mainCards: newDeck.cards.main, sideboard: newDeck.cards.side, legalities:legalities, colors:[...colors]});
     }else{
       await Deck.create({ 
           title: newDeck.title,
@@ -185,12 +194,20 @@ router.get('/makeDeck/save',async (req,res,next)=>{
           authorId: req.session.currentUser._id,
           mainCards: newDeck.cards.main,
           sideboard: newDeck.cards.side,
-          likes: []
+          legalities: legalities,
+          colors: [...colors],
+          likes: [],
+          dislikes:[],
+          replies: []
         });
     }
     currentDeck='';
     newDeck = ''; 
     res.redirect("/myDecks");
+  }else {
+    newDeck.mistakes = mistakes;
+    res.render("myPage/makeDeck", { newDeck });
+  }
 })
 
 //My decks

@@ -1,10 +1,11 @@
 var express = require("express");
+const Filter = require('bad-words');
 const Card = require("../models/Card");
 const User = require("../models/User");
+const Deck = require("../models/Deck");        
 const colors = require('colors');
-const Deck = require("../models/Deck");
 var router = express.Router();
-
+var filter = new Filter();
 let resultSearch = '';
 let addedCards = [];
 
@@ -123,7 +124,8 @@ router.get('/search/deck/:id', async (req, res, next)=>{
 });
 
 router.post('/deckInfo/reply', async (req,res,next)=>{
-  let newReplies = [...deck.replies, {message: req.body.reply, author:req.session.currentUser.username}];
+  let filterReply = filter.clean(req.body.reply)
+  let newReplies = [...deck.replies, {message: filterReply, author:req.session.currentUser.username}];
   console.log(newReplies);
   await Deck.findByIdAndUpdate({_id:deck._id},{replies:newReplies});
   res.redirect(`/search/deck/${deck._id}`);
