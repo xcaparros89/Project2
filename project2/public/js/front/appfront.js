@@ -71,7 +71,6 @@ $(document).ready(function() {
 
         var buyCard = $('#buy-card');
         var inputN = $('#owned');
-
         inputN.attr('max', dataModel.data('count'));
 
         label.text(dataModel.data('name')); // Set Modal Title
