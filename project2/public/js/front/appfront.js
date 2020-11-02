@@ -62,28 +62,36 @@ $(document).ready(function() {
         var body = $('#modalBody');
         var dataModel = $(this).find('img');
         var modelfeats = $('#model-feats').find('li');
+        
+        // Manage FORMS
         var addCardForm = $('#addCardForm');
-        var buyCard = $('#buy-card');
-        console.log(buyCard)
+        var removeCardForm = $('#removeCardForm');
+        $(addCardForm).attr('action', '/search/card/'+dataModel.data('id')); //Set add to collection form action
+        $(removeCardForm).attr('action', '/search/card/'+dataModel.data('id')); //Set remove to collection form action
 
+        var buyCard = $('#buy-card');
+        var inputN = $('#owned');
+
+        inputN.attr('max', dataModel.data('count'));
 
         label.text(dataModel.data('name')); // Set Modal Title
         
         buyCard[0].innerHTML=`<a href="${dataModel.data('buy')}" class="buy-card" target="_blank" style="white-space:pre"><span class="ion-android-cart incIconSize"></span>  Buy this card</a>`;
         
-        price.text($(this).find('.item-price-caption').text());
         img.attr('src', dataModel.attr('src'));
         
-        $(addCardForm).attr('action', '/search/card/'+dataModel.data('id')); //Set add to collection form action
 
-        $(modelfeats[0]).text('Type: ' + dataModel.data('type')); //Card type (There is always one)
+
+
+        $(modelfeats[0]).text('Owned: ' + dataModel.data('count')); //Card type (There is always one)
+
         // Add other attributes just if they exists
-        dataModel.data('power') ? $(modelfeats[1]).text('Power: ' + dataModel.data('power')) : $(modelfeats[1]).addClass('hidden');
-        dataModel.data('toughness') ? $(modelfeats[2]).text('Toughness: ' + dataModel.data('toughness')) : $(modelfeats[2]).addClass('hidden');
-        dataModel.data('setname') ? $(modelfeats[3]).text('Set: ' + dataModel.data('setname')) : $(modelfeats[3]).addClass('hidden');
-        modelfeats[4].innerHTML=`
-        <a href="${dataModel.data('buy')}" class="modalBuyA" target="_blank" style="white-space:pre"><span class="ion-ios-cart incIconSize"></span>  Buy this card</a>
-        `;
+        // dataModel.data('power') ? $(modelfeats[1]).text('Power: ' + dataModel.data('power')) : $(modelfeats[1]).addClass('hidden');
+        // dataModel.data('toughness') ? $(modelfeats[2]).text('Toughness: ' + dataModel.data('toughness')) : $(modelfeats[2]).addClass('hidden');
+        // dataModel.data('setname') ? $(modelfeats[3]).text('Set: ' + dataModel.data('setname')) : $(modelfeats[3]).addClass('hidden');
+        // modelfeats[4].innerHTML=`
+        // <a href="${dataModel.data('buy')}" class="modalBuyA" target="_blank" style="white-space:pre"><span class="ion-ios-cart incIconSize"></span>  Buy this card</a>
+        // `;
 
     });
 

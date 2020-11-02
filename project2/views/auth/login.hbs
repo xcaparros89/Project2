@@ -1,36 +1,26 @@
-<div class="container">
-<form action="/login" method="POST" id="form">
-    <div class="row">
-        <div class="col-12">
-            <h2>Login</h2>
+<!-- search/login.hbs -->
+<div class="row pattern-soldier avoidSticked" style="min-height:100vh">
+<div class="container-fluid" style="min-height: 85vh">
+    <div class="row" style="margin-top: 15vh">
+        <div class="col-xs-12">
+            <h2 class="section-header">Log in</h2>
         </div>
     </div>
     <div class="row">
-        <div class="col-12">
-            <input type="text" name="username" placeholder="Username/Email">
+        <div class="col-xs-8 col-xs-offset-2">
+            <form id="form" class="contact-form login-form" action="/login" method="POST">
+                <input type="text" name="username" placeholder="Username / Email" onfocus="this.placeholder=''" onblur="this.placeholder='Username / Email'"/>
+                <input type="password" name="password" placeholder="Password" onfocus="this.placeholder=''" onblur="this.placeholder='Password'"/>
+                <div class="col-xs-10 col-xs-offset-1" style="min-width:195px">
+                    <a href="javascript:$('#form').submit();"  class="button-game">
+                        <span class="button-game-bg-left"></span>
+                        <span class="button-game-bg-mid">
+                            <span class="ion-log-in  button-game-apple"></span><span>&nbsp;&nbsp;&nbsp;Log in</span>
+                        </span> 
+                        <span class="button-game-bg-right"></span>
+                    </a>
+                </div>
+            </form>
         </div>
     </div>
-    <div class="row">
-        <div class="col-12">
-            <input type="password" name="password" placeholder="Password">
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-12">
-            <button>Login</button>
-        </div>
-    </div>
-    {{#if errorMessage }}
-    <div class="row">
-        <div class="col-12">
-        {{ errorMessage }}
-        </div>
-    </div>
-    {{/if}}
-    <div class="row">
-        <div class="col-12">
-            <p class="account-message"> Don't have an account? <a href="/signup">Sign up</a></p>
-        </div>
-    </div>
-</form>
 </div>
