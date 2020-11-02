@@ -17,8 +17,18 @@ router.use((req, res, next) => { // Todo lo que esta dentro del Array es protect
   });
   
   //Profile
-  router.get("/profile", async function (req, res, next) {
-        res.render("myPage/profile");
+  router.get("/profile", function (req, res, next) {
+    res.render("myPage/profile", {user:req.session.currentUser});
+  })
+
+  router.get("/modifyProfile", function (req, res, next) {
+    res.render("myPage/modifyProfile", {user:req.session.currentUser});
+  })
+
+  router.post("/modifyProfile", async function (req, res, next) {
+    newuser = await Deck.findByIdAndUpdate({_id: req.session.currentUser}, {username: req.body.username, email:req.body.email, password:req.body.password});
+    req.session.currentUser = newuser;
+    res.render("myPage/profile", {user:req.session.currentUser});
   })
 
   //My cards

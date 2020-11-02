@@ -118,7 +118,7 @@ router.get('/search/deck/:id', async (req, res, next)=>{
 });
 
 router.post('/deckInfo/reply', async (req,res,next)=>{
-  let newReplies = [...deck.replies, {message: req.body.reply, author:req.session.currentUser.email}];
+  let newReplies = [...deck.replies, {message: req.body.reply, author:req.session.currentUser.username}];
   console.log(newReplies);
   await Deck.findByIdAndUpdate({_id:deck._id},{replies:newReplies});
   res.redirect(`/search/deck/${deck._id}`);
