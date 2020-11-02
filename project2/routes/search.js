@@ -7,8 +7,8 @@ const colors = require('colors');
 var router = express.Router();
 var filter = new Filter();
 let resultSearch = '';
-let addedCards = [];
 
+//search cards
 router.get("/search/card", function (req, res, next) {
   if(req.session.currentUser) {
     res.locals.isLogged = true;
@@ -77,26 +77,14 @@ router.post("/search/card", async (req, res, next) => {
 });
 
 router.post("/search/card/:id", async (req, res, next) => {
+  console.log(req.params.id)
   if(req.session.currentUser) {
     res.locals.isLogged = true;
   }
     try {
-      let newCard = true;
-      let collection = [...req.session.currentUser.userCards, ...addedCards];
-      collection = req.session.currentUser.userCards.map(card=>{
-        if(card._id == req.params.id){
-          newCard = false;
-          return {_id:req.params.id, count: req.body.owned}
-        }
-        return card
-      })
-      if(newCard){
-        addedCards = [...addedCards, {_id:req.params.id, count: req.body.owned}]
-        collection = [...collection, ...addedCards];
-      }
-      console.log(collection)
+      req.session.currentUser = await User.findById(req.session.currentUser._id);
+      collection = [...req.session.currentUser.userCards.filter(card=>card._id != req.params.id), {_id:req.params.id, count: req.body.owned}];
       await User.findByIdAndUpdate(req.session.currentUser._id, {userCards: collection});
-
       const card = await Card.findOne({_id: req.params.id})
       res.locals.addedMessage = req.body.owned + " " + card.name + " has been added to your collection."
       res.locals.cardAdded = true;
@@ -106,6 +94,7 @@ router.post("/search/card/:id", async (req, res, next) => {
     }
   });
 
+// explore decks
 router.get('/search/deck', async (req, res, next)=>{
   console.log(req.session.currentUser);
   res.locals.userId = req.session.currentUser._id;
@@ -116,11 +105,35 @@ router.get('/search/deck', async (req, res, next)=>{
 let deck;
 router.get('/search/deck/:id', async (req, res, next)=>{
   deck = await Deck.findById(req.params.id).populate('mainCards.card').populate('sideboard.card');
-  console.log('deci', deck.likes.length);
+  author = await User.findById(deck.authorId);
+  res.locals.isUserAuthor = deck.authorId === req.session.currentUser._id? true : false;
+  let deckOrg={legalities:deck.legalities, colors:deck.colors, likes: deck.likes, dislikes:deck.dislikes, id:deck._id, title: deck.title, description:deck.description, author: author.username, replies: deck.replies, 
+    mainCards:{lands:[], artifacts:[], enchantments:[], instants:[], sorceries:[], planeswalkers:[],creatures:[], others:[]}, sideboard:{lands:[], artifacts:[], enchantments:[], instants:[], sorceries:[], planeswalkers:[],creatures:[], others:[]}};
+  console.log('ci', deckOrg);
+  deck.mainCards.forEach(cardObj=>{
+      if (/Land/.test(cardObj.card.type_line)){deckOrg.mainCards.lands.push(cardObj);}
+      else if (/Instant/.test(cardObj.card.type_line)){deckOrg.mainCards.instants.push(cardObj);}
+      else if (/Enchantment/.test(cardObj.card.type_line)){deckOrg.mainCards.enchantments.push(cardObj);}
+      else if (/Sorcery/.test(cardObj.card.type_line)){deckOrg.mainCards.sorceries.push(cardObj);}
+      else if (/Planeswalker/.test(cardObj.card.type_line)){deckOrg.mainCards.planeswalkers.push(cardObj);}
+      else if (/Creature/.test(cardObj.card.type_line)){deckOrg.mainCards.creatures.push(cardObj);}
+      else if (/Artifact/.test(cardObj.card.type_line)){deckOrg.mainCards.artifacts.push(cardObj);}
+      else {deckOrg.mainCards.others.push(cardObj);}
+  });
+  deck.sideboard.forEach(cardObj=>{
+    if (/Land/.test(cardObj.card.type_line)){deckOrg.sideboard.lands.push(cardObj);}
+    else if (/Instant/.test(cardObj.card.type_line)){deckOrg.sideboard.instants.push(cardObj);}
+    else if (/Enchantment/.test(cardObj.card.type_line)){deckOrg.sideboard.lands.push(cardObj);}
+    else if (/Sorcery/.test(cardObj.card.type_line)){deckOrg.sideboard.sorceries.push(cardObj);}
+    else if (/Planeswalker/.test(cardObj.card.type_line)){deckOrg.sideboard.planeswalkers.push(cardObj);}
+    else if (/Creature/.test(cardObj.card.type_line)){deckOrg.sideboard.creatures.push(cardObj);}
+    else if (/Artifact/.test(cardObj.card.type_line)){deckOrg.sideboard.artifacts.push(cardObj);}
+    else {deckOrg.sideboard.others.push(cardObj);}
+});
+  console.log('deci', deckOrg);
   res.locals.likes = deck.likes.length;
   res.locals.dislikes = deck.dislikes.length;
-  //res.locals.likes = decks.dislikes.length;
-  res.render('search/deckInfo', {deck});
+  res.render('search/deckInfo', {deckOrg});
 });
 
 router.post('/deckInfo/reply', async (req,res,next)=>{
