@@ -103,12 +103,11 @@ router.get('/search/deck', async (req, res, next)=>{
 
 router.post('/search/deck', async (req, res, next)=>{
   let colors = req.body['colors[]'];
-  let legalities = req.body['legalities[]'];
   let params = [];
   if(req.body.title) params.push({title: new RegExp(`(.*${req.body.title}).*`,'gi')});
-  if(legalities)typeof legalities === 'object'? legalities.forEach(leg=>params.push({legalities: {$in: [leg]}})) : params.push({legalities: {$in: [legalities]}});
+  if(req.body.legalities && req.body.legalities!='All') params.push({legalities:{$in: [req.body.legalities]}});
   if(colors)typeof colors === 'object'? colors.forEach(col=>params.push({colors: {$in: [col]}})) : params.push({colors: {$in: [colors]}});
-  let decks = await Deck.find({$and: [...params]});
+   let decks =  params.length? await Deck.find({$and: [...params]}) : await Deck.find();
   res.render('search/deck', {decks});
 });
 
