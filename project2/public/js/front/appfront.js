@@ -67,11 +67,16 @@ $(document).ready(function() {
         var addCardForm = $('#addCardForm');
         var removeCardForm = $('#removeCardForm');
         $(addCardForm).attr('action', '/search/card/'+dataModel.data('id')); //Set add to collection form action
-        $(removeCardForm).attr('action', '/search/card/'+dataModel.data('id')); //Set remove to collection form action
+        $(removeCardForm).attr('action', '/myCollection/modify/'+dataModel.data('id')); //Set remove to collection form action
 
         var buyCard = $('#buy-card');
         var inputN = $('#owned');
+<<<<<<< HEAD
         inputN.attr('max', dataModel.data('count'));
+=======
+
+        inputN.attr('value', dataModel.data('count'));
+>>>>>>> xavi
 
         label.text(dataModel.data('name')); // Set Modal Title
         

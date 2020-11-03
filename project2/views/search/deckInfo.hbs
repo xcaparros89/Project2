@@ -1,21 +1,120 @@
-<h1>{{deck.title}}</h1>
+<h1>{{deckOrg.title}}</h1>
 <form action='/deckInfo/like' method='GET'>
     <p>Likes: {{likes}}</p><button type='submit'>Like</button>
 </form>
 <form action='/deckInfo/dislike' method='GET'>
     <p>Dislikes: {{dislikes}}</p><button type='submit'>Dislike</button>
 </form>
-
-<p>{{deck.description}}</p>
+{{#if isUserAuthor}}
+<form action='/myDecks/modify/{{deckOrg.id}}' method='POST'>
+<button type='submit'>Modify deck</button>
+</form>
+{{else}}
+<form action='/myDecks/copy/{{deckOrg.id}}' method='GET'>
+<button type='submit'>Copy deck</button>
+</form>
+{{/if}}
+<p>Author: {{deckOrg.author}}</p>
+<p>{{deckOrg.description}}</p>
 <div>
     <p>Main deck</p>
-    {{#each deck.mainCards}}
-    <p>{{count}} X {{card.name}}</p>
-    {{/each}}
+        {{#if deckOrg.mainCards.lands}}
+        <p>Lands</p>
+        {{#each deckOrg.mainCards.lands}}
+        <p>{{count}} X {{card.name}} <div class='mana-cost'>{{card.mana_cost}}</div></p>
+        {{/each}}
+        {{/if}}
+        {{#if deckOrg.mainCards.artifacts}}
+        <p>Artifacts</p>
+        {{#each deckOrg.mainCards.artifacts}}
+        <p>{{count}} X {{card.name}} <div class='mana-cost'>{{card.mana_cost}}</div></p>
+        {{/each}}
+        {{/if}}
+        {{#if deckOrg.mainCards.enchantments}}
+        <p>Enchantments</p>
+        {{#each deckOrg.mainCards.enchantments}}
+        <p>{{count}} X {{card.name}} <div class='mana-cost'>{{card.mana_cost}}</div></p>
+        {{/each}}
+        {{/if}}
+        {{#if deckOrg.mainCards.instants}}
+        <p>Instants</p>
+        {{#each deckOrg.mainCards.instants}}
+        <p>{{count}} X {{card.name}} <div class='mana-cost'>{{card.mana_cost}}</div></p>
+        {{/each}}
+        {{/if}}
+        {{#if deckOrg.mainCards.sorceries}}
+        <p>Sorceries</p>
+        {{#each deckOrg.mainCards.sorceries}}
+        <p>{{count}} X {{card.name}} <div class='mana-cost'>{{card.mana_cost}}</div></p>
+        {{/each}}
+        {{/if}}
+        {{#if deckOrg.mainCards.planeswalkers}}
+        <p>Planeswalkers</p>
+        {{#each deckOrg.mainCards.planeswalkers}}
+        <p>{{count}} X {{card.name}} <div class='mana-cost'>{{card.mana_cost}}</div></p>
+        {{/each}}
+        {{/if}}
+        {{#if deckOrg.mainCards.creatures}}
+        <p>Creatures</p>
+        {{#each deckOrg.mainCards.creatures}}
+        <p>{{count}} X {{card.name}} <div class='mana-cost'>{{card.mana_cost}}</div></p>
+        {{/each}}
+        {{/if}}
+        {{#if deckOrg.mainCards.others}}
+        <p>Others</p>
+        {{#each deckOrg.mainCards.others}}
+        <p>{{count}} X {{card.name}} <div class='mana-cost'>{{card.mana_cost}}</div></p>
+        {{/each}}
+        {{/if}}
     <p>Side deck</p>
-    {{#each deck.sideboard}}
-    <p>{{count}} X {{card.name}}</p>
-    {{/each}}
+        {{#if deckOrg.sideboard.lands}}
+        <p>Lands</p>
+        {{#each deckOrg.sideboard.lands}}
+        <p>{{count}} X {{card.name}} <div class='mana-cost'>{{card.mana_cost}}</div></p>
+        {{/each}}
+        {{/if}}
+        {{#if deckOrg.sideboard.artifacts}}
+        <p>Artifacts</p>
+        {{#each deckOrg.sideboard.artifacts}}
+        <p>{{count}} X {{card.name}} <div class='mana-cost'>{{card.mana_cost}}</div></p>
+        {{/each}}
+        {{/if}}
+        {{#if deckOrg.sideboard.enchantments}}
+        <p>Enchantments</p>
+        {{#each deckOrg.sideboard.enchantments}}
+        <p>{{count}} X {{card.name}} <div class='mana-cost'>{{card.mana_cost}}</div></p>
+        {{/each}}
+        {{/if}}
+        {{#if deckOrg.sideboard.instants}}
+        <p>Instants</p>
+        {{#each deckOrg.sideboard.instants}}
+        <p>{{count}} X {{card.name}} <div class='mana-cost'>{{card.mana_cost}}</div></p>
+        {{/each}}
+        {{/if}}
+        {{#if deckOrg.sideboard.sorceries}}
+        <p>Sorceries</p>
+        {{#each deckOrg.sideboard.sorceries}}
+        <p>{{count}} X {{card.name}} <div class='mana-cost'>{{card.mana_cost}}</div></p>
+        {{/each}}
+        {{/if}}
+        {{#if deckOrg.sideboard.planeswalkers}}
+        <p>Planeswalkers</p>
+        {{#each deckOrg.sideboard.planeswalkers}}
+        <p>{{count}} X {{card.name}} <div class='mana-cost'>{{card.mana_cost}}</div></p>
+        {{/each}}
+        {{/if}}
+        {{#if deckOrg.sideboard.creatures}}
+        <p>Creatures</p>
+        {{#each deckOrg.sideboard.creatures}}
+        <p>{{count}} X {{card.name}} <div class='mana-cost'>{{card.mana_cost}}</div></p>
+        {{/each}}
+        {{/if}}
+        {{#if deckOrg.sideboard.others}}
+        <p>Others</p>
+        {{#each deckOrg.sideboard.others}}
+        <p>{{count}} X {{card.name}} <div class='mana-cost'>{{card.mana_cost}}</div></p>
+        {{/each}}
+        {{/if}}
 </div>
 <div>
     <h2>Make a reply</h2>
@@ -26,7 +125,7 @@
 </div>
 <div>
     <h2>Replies</h2>
-    {{#each deck.replies}}
+    {{#each deckOrg.replies}}
     <p>{{message}}</p>
     <p>{{author}}</p>
     {{/each}}

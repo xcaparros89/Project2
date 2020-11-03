@@ -29,21 +29,32 @@ router.use((req, res, next) => { // Todo lo que esta dentro del Array es protect
   })
 
   router.post("/modifyProfile", async function (req, res, next) {
-    newuser = await Deck.findByIdAndUpdate({_id: req.session.currentUser}, {username: req.body.username, email:req.body.email, password:req.body.password});
+    newuser = await User.findByIdAndUpdate(req.session.currentUser._id, {username: req.body.username, email:req.body.email, password:req.body.password});
     req.session.currentUser = newuser;
     res.render("myPage/profile", {user:req.session.currentUser});
   })
 
   //My cards
   router.get("/myCollection", async function (req, res, next) {
-    if(req.session.currentUser) {
-      res.locals.isLogged = true;
-    }
+    if(req.session.currentUser) res.locals.isLogged = true;
     try {
+      req.session.currentUser = await User.findById(req.session.currentUser._id);
       let userPopulated = await User.findById(req.session.currentUser._id).populate('userCards._id');
       let userCards = userPopulated.userCards;
       res.render("myPage/myCollection", {userCards});
     } catch (error) {console.log(error);}
+  });
+
+  router.post('/myCollection/modify/:id', async function(req, res, next){
+    if(req.session.currentUser)res.locals.isLogged = true;
+    try{
+    let userCards = req.session.currentUser.userCards;
+    let newUserCards;
+    let owned = Number(req.body.owned);
+    newUserCards = owned == 0? userCards.filter(card=> card._id != req.params.id) : userCards.map(card=>card._id == req.params.id? {_id:req.params.id, count:owned} : card);
+    await User.findByIdAndUpdate(req.session.currentUser._id, {userCards: newUserCards});
+    res.redirect('/myCollection');
+    } catch(error){console.log(error);}
   });
 
 //Make deck
@@ -182,9 +193,16 @@ router.get('/makeDeck/save',async (req,res,next)=>{
       legalities = [...newLegalities];
       return {card: cardObj.card._id, count: cardObj.count};
     });
+    newDeck.cards.side = newDeck.cards.side.map(cardObj=>{
+      if(cardObj.count>4 && !/Basic Land/.test(cardObj.card.type_line)){mistakes += `You cannot have more than 4 ${cardObj.card.name}.`}
+      colors = [...colors, ...cardObj.card.colors];
+      let newLegalities = [...legalities];
+      legalities.forEach(legality=>{if(cardObj.card.legalities[legality]==='not_legal')newLegalities.splice(newLegalities.indexOf(legality), 1);});
+      legalities = [...newLegalities];
+      return {card: cardObj.card._id, count: cardObj.count};
+    });
     colors = new Set(colors);
     console.log('legalities', legalities); console.log('mistakes', mistakes); console.log('colors',[...colors]);
-    newDeck.cards.side = newDeck.cards.side.map(cardObj=>{return {card: cardObj.card._id, count: cardObj.count};});
     mistakes = ''; // uncomment this line is to have the validation for number of cards in deck, 4 of a kind...
     if(!mistakes){
     if(currentDeck){
@@ -223,8 +241,8 @@ router.get("/myDecks", async function (req, res, next) {
 router.post('/myDecks/modify/:id', async function (req,res,next){
   currentDeck = req.params.id;
   let myDeck = await Deck.findById(req.params.id).populate('mainCards.card').populate('sideboard.card');
- let mainCards = []; 
- let sideboard = [];
+  let mainCards = []; 
+  let sideboard = [];
   myDeck.mainCards.forEach(cardObj=>{mainCards.push({card:cardObj.card, count:cardObj.count})});
   myDeck.sideboard.forEach(cardObj=>{sideboard.push({card:cardObj.card, count:cardObj.count})});
   newDeck = {title:myDeck.title, description:myDeck.description, cards: {main:mainCards, side:sideboard, undecided:[]}};
@@ -232,9 +250,31 @@ router.post('/myDecks/modify/:id', async function (req,res,next){
   res.render('myPage/makeDeck', {newDeck});
 });
 
-  router.post('/myDecks/delete/:id', async function (req,res,next){
-    await Deck.findOneAndRemove({_id:req.params.id});
-    res.redirect('/myDecks');
+router.get("/myDecks/copy/:id", async function (req, res, next) {
+  let copiedDeck = await Deck.findById(req.params.id);
+  copiedDeck = JSON.stringify(copiedDeck);
+  let newDeck = JSON.parse(copiedDeck);
+  newMainCards = newDeck.mainCards.map(cardObj=>{return {card: cardObj.card, count: cardObj.count};});
+  newSideboard = newDeck.sideboard.map(cardObj=>{return {card: cardObj.card, count: cardObj.count};});
+  console.log('here', newMainCards, newSideboard);
+  await Deck.create({
+    title: newDeck.title,
+    description: newDeck.description,
+    authorId: req.session.currentUser._id,
+    mainCards: newMainCards,
+    sideboard: newSideboard,
+    legalities: newDeck.legalities,
+    colors: newDeck.colors,
+    likes: [],
+    dislikes:[],
+    replies: []
   });
+  res.redirect('/myDecks');
+})
+
+router.post('/myDecks/delete/:id', async function (req,res,next){
+await Deck.findOneAndRemove({_id:req.params.id});
+res.redirect('/myDecks');
+});
 
 module.exports = router;
