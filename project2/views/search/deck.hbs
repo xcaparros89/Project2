@@ -1,10 +1,25 @@
-
-<form id="form" action="/deck" method="POST">
     <h2>Deck search</h2>
-    <label for="params">Params</label>
-    <br />
-    <input type="params" name="params" placeholder="Params" />
-    <button type="submit">Search</button>
+<form action="/search/deck" method="post">
+    <label for="title">Title: <input type="text" name="title" /></label><br />
+    <input type="checkbox" name="colors[]" value="B"><label for='colors[]'></label>Black</label>
+    <input type="checkbox" name="colors[]" value="W"><label for='colors[]'></label>White</label>
+    <input type="checkbox" name="colors[]" value="G"><label for='colors[]'></label>Green</label>
+    <input type="checkbox" name="colors[]" value="R"><label>Red</label>
+    <input type="checkbox" name="colors[]" value="U"><label>Blue</label><br/>
+    <input type="checkbox" name="legalities[]" value="standard"><label>Standard</label>
+    <input type="checkbox" name="legalities[]" value="future"><label>Future</label>
+    <input type="checkbox" name="legalities[]" value="historic"><label>Historic</label>
+    <input type="checkbox" name="legalities[]" value="pionner"><label>Pionner</label>
+    <input type="checkbox" name="legalities[]" value="modern"><label>Modern</label>
+    <input type="checkbox" name="legalities[]" value="legacy"><label>Legacy</label>
+    <input type="checkbox" name="legalities[]" value="pauper"><label>Pauper</label>
+    <input type="checkbox" name="legalities[]" value="vintage"><label>Vintage</label>
+    <input type="checkbox" name="legalities[]" value="penny"><label>Penny</label>
+    <input type="checkbox" name="legalities[]" value="commander"><label>Commander</label>
+    <input type="checkbox" name="legalities[]" value="brawl"><label>Brawl</label>
+    <input type="checkbox" name="legalities[]" value="duel"><label>Duel</label>
+    <input type="checkbox" name="legalities[]" value="oldschool"><label>Oldschool</label>
+    <input type="submit" name="submit" value="Enviar"/>
 </form>
 <div>
     <ul>

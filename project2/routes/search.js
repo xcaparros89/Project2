@@ -61,6 +61,7 @@ router.post("/search/card", async (req, res, next) => {
   }
 
     try {
+      console.log('paramsObj', paramsObj)
       resultSearch = await Card.find(paramsObj);
       if(req.session.currentUser) {
         res.locals.isLogged = true;
@@ -96,16 +97,18 @@ router.post("/search/card/:id", async (req, res, next) => {
 
 // explore decks
 router.get('/search/deck', async (req, res, next)=>{
-  console.log(req.session.currentUser);
-  res.locals.userId = req.session.currentUser._id;
   let decks = await Deck.find();
   res.render('search/deck', {decks});
 });
 
 router.post('/search/deck', async (req, res, next)=>{
-  console.log(req.session.currentUser);
-  res.locals.userId = req.session.currentUser._id;
-  let decks = await Deck.find();
+  let colors = req.body['colors[]'];
+  let legalities = req.body['legalities[]'];
+  let params = [];
+  if(req.body.title) params.push({title: new RegExp(`(.*${req.body.title}).*`,'gi')});
+  if(legalities)typeof legalities === 'object'? legalities.forEach(leg=>params.push({legalities: {$in: [leg]}})) : params.push({legalities: {$in: [legalities]}});
+  if(colors)typeof colors === 'object'? colors.forEach(col=>params.push({colors: {$in: [col]}})) : params.push({colors: {$in: [colors]}});
+  let decks = await Deck.find({$and: [...params]});
   res.render('search/deck', {decks});
 });
 
@@ -114,7 +117,10 @@ router.get('/search/deck/:id', async (req, res, next)=>{
   deck = await Deck.findById(req.params.id).populate('mainCards.card').populate('sideboard.card');
   author = await User.findById(deck.authorId);
   console.log(deck)
+  if( req.session.currentUser){
+    res.locals.isLogged = true;
   res.locals.isUserAuthor = deck.authorId === req.session.currentUser._id? true : false;
+  }
   let deckOrg={legalities:deck.legalities, colors:deck.colors, likes: deck.likes, dislikes:deck.dislikes, id:deck._id, title: deck.title, description:deck.description, author: author.username, replies: deck.replies, 
     mainCards:{lands:[], artifacts:[], enchantments:[], instants:[], sorceries:[], planeswalkers:[],creatures:[], others:[]}, sideboard:{lands:[], artifacts:[], enchantments:[], instants:[], sorceries:[], planeswalkers:[],creatures:[], others:[]}};
   console.log('ci', deckOrg);
