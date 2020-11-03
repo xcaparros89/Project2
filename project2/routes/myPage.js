@@ -254,8 +254,9 @@ router.get("/myDecks/copy/:id", async function (req, res, next) {
   let copiedDeck = await Deck.findById(req.params.id);
   copiedDeck = JSON.stringify(copiedDeck);
   let newDeck = JSON.parse(copiedDeck);
-  newMainCards = newDeck.mainCards.map(cardObj=>{return {card: cardObj.card._id, count: cardObj.count};});
-  newSideboard = newDeck.sideboard.map(cardObj=>{return {card: cardObj.card._id, count: cardObj.count};});
+  newMainCards = newDeck.mainCards.map(cardObj=>{return {card: cardObj.card, count: cardObj.count};});
+  newSideboard = newDeck.sideboard.map(cardObj=>{return {card: cardObj.card, count: cardObj.count};});
+  console.log('here', newMainCards, newSideboard);
   await Deck.create({
     title: newDeck.title,
     description: newDeck.description,

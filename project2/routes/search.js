@@ -106,6 +106,7 @@ let deck;
 router.get('/search/deck/:id', async (req, res, next)=>{
   deck = await Deck.findById(req.params.id).populate('mainCards.card').populate('sideboard.card');
   author = await User.findById(deck.authorId);
+  console.log(deck)
   res.locals.isUserAuthor = deck.authorId === req.session.currentUser._id? true : false;
   let deckOrg={legalities:deck.legalities, colors:deck.colors, likes: deck.likes, dislikes:deck.dislikes, id:deck._id, title: deck.title, description:deck.description, author: author.username, replies: deck.replies, 
     mainCards:{lands:[], artifacts:[], enchantments:[], instants:[], sorceries:[], planeswalkers:[],creatures:[], others:[]}, sideboard:{lands:[], artifacts:[], enchantments:[], instants:[], sorceries:[], planeswalkers:[],creatures:[], others:[]}};
