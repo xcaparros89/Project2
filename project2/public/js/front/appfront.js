@@ -71,12 +71,8 @@ $(document).ready(function() {
 
         var buyCard = $('#buy-card');
         var inputN = $('#owned');
-<<<<<<< HEAD
-        inputN.attr('max', dataModel.data('count'));
-=======
 
         inputN.attr('value', dataModel.data('count'));
->>>>>>> xavi
 
         label.text(dataModel.data('name')); // Set Modal Title
         
@@ -90,12 +86,12 @@ $(document).ready(function() {
         $(modelfeats[0]).text('Owned: ' + dataModel.data('count')); //Card type (There is always one)
 
         // Add other attributes just if they exists
-        // dataModel.data('power') ? $(modelfeats[1]).text('Power: ' + dataModel.data('power')) : $(modelfeats[1]).addClass('hidden');
-        // dataModel.data('toughness') ? $(modelfeats[2]).text('Toughness: ' + dataModel.data('toughness')) : $(modelfeats[2]).addClass('hidden');
-        // dataModel.data('setname') ? $(modelfeats[3]).text('Set: ' + dataModel.data('setname')) : $(modelfeats[3]).addClass('hidden');
-        // modelfeats[4].innerHTML=`
-        // <a href="${dataModel.data('buy')}" class="modalBuyA" target="_blank" style="white-space:pre"><span class="ion-ios-cart incIconSize"></span>  Buy this card</a>
-        // `;
+        dataModel.data('power') ? $(modelfeats[1]).text('Power: ' + dataModel.data('power')) : $(modelfeats[1]).addClass('hidden');
+        dataModel.data('toughness') ? $(modelfeats[2]).text('Toughness: ' + dataModel.data('toughness')) : $(modelfeats[2]).addClass('hidden');
+        dataModel.data('setname') ? $(modelfeats[3]).text('Set: ' + dataModel.data('setname')) : $(modelfeats[3]).addClass('hidden');
+        modelfeats[4].innerHTML=`
+        <a href="${dataModel.data('buy')}" class="modalBuyA" target="_blank" style="white-space:pre"><span class="ion-ios-cart incIconSize"></span>  Buy this card</a>
+        `;
 
     });
 

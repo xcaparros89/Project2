@@ -1,4 +1,4 @@
-    <h1>My decks</h1>
+    {{!-- <h1>My decks</h1>
     <h2>Add new deck</h2>
     <form action="/makeDeck" method="POST">
         <label>Title: </label><input type='text' name='title'>
@@ -6,6 +6,10 @@
         <button type='submit'>Make</button>
     </form>
     <h2>My decks:</h2>
+
+
+
+
     <ul>
         {{#each myDecks}}
             <li>
@@ -14,4 +18,34 @@
                 <form action="/myDecks/delete/{{_id}}" method="POST"><button>Delete deck</button></form>               
             </li>
         {{/each}}
-    </ul>
+    </ul> --}}
+
+
+
+<!-- myPage/myCollection.hbs -->
+<div class="row pattern-angel avoidSticked" style="min-height:85vh">
+    <div class="container-fluid">
+        <div class="row pattern-dark">
+            <div class="col-xs-12">
+                <h2>My Decks</h2>
+            </div>
+        </div>
+            <!-- ============== DIVIDER ============== -->
+            <div class="Divider">
+                <hr class="Divider-rule">
+            </div>
+        <!-- ============== COLLECTION CARDS (NEEDS TO BE FILTERED) ============== -->
+        <div class="row" style="margin: 15px auto 70px auto">
+
+
+       {{#each myDecks}}
+            <article class="col-xs-6 col-sm-4 col-md-3 box features-item thumbnail-100 img-bg" data-toggle="modal" data-target="#shop-modal">
+            <img class="features-img" src="/img/deck/decks_b.png" alt="{{_id.name}}" data-id="{{_id._id}}" data-name="{{_id.name}}" data-img="{{_id.image_uris.png}}" data-type="{{_id.type_line}}" data-power="{{_id.power}}" data-toughness="{{_id.toughness}}" data-buy="https://www.cardmarket.com/es/Magic/Products/Search?searchString={{_id.name}}" data-setname="{{_id.set_name}}" data-count="{{count}}">
+            <div class="centered">
+                <p>{{title}}</p>
+            </div>
+            </article>
+        {{/each}}
+        </div>
+    </div>
+</div>
