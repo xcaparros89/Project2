@@ -102,6 +102,13 @@ router.get('/search/deck', async (req, res, next)=>{
   res.render('search/deck', {decks});
 });
 
+router.post('/search/deck', async (req, res, next)=>{
+  console.log(req.session.currentUser);
+  res.locals.userId = req.session.currentUser._id;
+  let decks = await Deck.find();
+  res.render('search/deck', {decks});
+});
+
 let deck;
 router.get('/search/deck/:id', async (req, res, next)=>{
   deck = await Deck.findById(req.params.id).populate('mainCards.card').populate('sideboard.card');
