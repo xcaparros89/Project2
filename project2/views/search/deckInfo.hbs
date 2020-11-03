@@ -1,10 +1,11 @@
 <h1>{{deckOrg.title}}</h1>
 <form action='/deckInfo/like' method='GET'>
-    <p>Likes: {{likes}}</p><button type='submit'>Like</button>
+    <p>Likes: {{likes}}</p>{{#if isLogged}}<button type='submit'>Like</button>{{/if}}
 </form>
 <form action='/deckInfo/dislike' method='GET'>
-    <p>Dislikes: {{dislikes}}</p><button type='submit'>Dislike</button>
+    <p>Dislikes: {{dislikes}}</p>{{#if isLogged}}<button type='submit'>Dislike</button>{{/if}}
 </form>
+{{#if isLogged}}
 {{#if isUserAuthor}}
 <form action='/myDecks/modify/{{deckOrg.id}}' method='POST'>
 <button type='submit'>Modify deck</button>
@@ -13,6 +14,7 @@
 <form action='/myDecks/copy/{{deckOrg.id}}' method='GET'>
 <button type='submit'>Copy deck</button>
 </form>
+{{/if}}
 {{/if}}
 <p>Author: {{deckOrg.author}}</p>
 <p>{{deckOrg.description}}</p>
@@ -116,6 +118,7 @@
         {{/each}}
         {{/if}}
 </div>
+{{#if isLogged}}
 <div>
     <h2>Make a reply</h2>
     <form action='/deckInfo/reply' method='POST'>
@@ -123,6 +126,7 @@
         <button type='submit'>Submit</button>
     </form>
 </div>
+{{/if}}
 <div>
     <h2>Replies</h2>
     {{#each deckOrg.replies}}
