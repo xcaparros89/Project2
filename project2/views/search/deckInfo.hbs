@@ -13,12 +13,16 @@
         <!-- ============== END BIG DIVIDER ============== -->
         <!-- ===== START DECK CARDS ===== -->
         <div class="container mw750">
-            <!-- ===== START DECK CARDS HEADER =====-->
-            <div class="col-xs-12">
+
+            <div class="col-xs-12" style="background-color: #0f0; margin-top:30px; margin-bottom:25px; min-height:120px; border-radius:10px; padding:0">
+                <!-- Add one div top left for description and another one at bottom right for author -->
+                <div class="centered">
                 <p>Author: {{deckOrg.author}}</p>
                 <p>{{deckOrg.description}}</p>
-                <p>Main deck</p>
+                </div>
             </div>
+            <!-- ===== START DECK CARDS HEADER =====-->
+            <div class="col-xs-12"><p class="innerTitle">Main deck</p></div>
             <!-- ===== END DECK CARDS HEADER =====-->
             <!-- ===== START MAIN DECK =====-->
             {{#if deckOrg.mainCards.creatures}}
@@ -95,78 +99,80 @@
             {{/if}}
             <!-- ===== END MAIN DECK ===== -->
             <!-- ===== START SIDEBOARD ===== -->
-            <div class="col-xs-12"><p>Side deck</p></div>
-            {{#if deckOrg.mainCards.creatures}}
+            {{#if deckOrg.sideboard.lands}}
+            <div class="col-xs-12"><p class="innerTitle">Sideboard</p></div>
+            {{#if deckOrg.sideboard.creatures}}
             <div class="col-xs-12"><p class="innerheader">Creatures</p></div>
-            {{#each deckOrg.mainCards.creatures}}
+            {{#each deckOrg.sideboard.creatures}}
             <div class="col-xs-12 col-sm-6">
                 <p style="display:inline;"><strong>{{count}}&nbsp;</strong>{{card.name}}&nbsp;</p><span class="mana-cost">{{card.mana_cost}}</span>
             </div>
             {{/each}}
             <div class="col-xs-12"><hr class="solid" style="magin-bottom: 50px"></div>
             {{/if}}
-            {{#if deckOrg.mainCards.artifacts}}
+            {{#if deckOrg.sideboard.artifacts}}
             <div class="col-xs-12"><p class="innerheader">Artifacts</p></div>
-            {{#each deckOrg.mainCards.artifacts}}
+            {{#each deckOrg.sideboard.artifacts}}
             <div class="col-xs-12 col-sm-6">
                 <p style="display:inline;"><strong>{{count}}&nbsp;</strong>{{card.name}}&nbsp;</p><span class="mana-cost">{{card.mana_cost}}</span>
             </div>
             {{/each}}
             <div class="col-xs-12"><hr class="solid" style="magin-bottom: 50px"></div>
             {{/if}}
-            {{#if deckOrg.mainCards.enchantments}}
+            {{#if deckOrg.sideboard.enchantments}}
             <div class="col-xs-12"><p class="innerheader">Enchantments</p></div>
-            {{#each deckOrg.mainCards.enchantments}}
+            {{#each deckOrg.sideboard.enchantments}}
             <div class="col-xs-12 col-sm-6">
                 <p style="display:inline;"><strong>{{count}}&nbsp;</strong>{{card.name}}&nbsp;</p><span class="mana-cost">{{card.mana_cost}}</span>
             </div>
             {{/each}}
             <div class="col-xs-12"><hr class="solid" style="magin-bottom: 50px"></div>
             {{/if}}
-            {{#if deckOrg.mainCards.instants}}
+            {{#if deckOrg.sideboard.instants}}
             <div class="col-xs-12"><p class="innerheader">Instants</p></div>
-            {{#each deckOrg.mainCards.instants}}
+            {{#each deckOrg.sideboard.instants}}
             <div class="col-xs-12 col-sm-6">
                 <p style="display:inline;"><strong>{{count}}&nbsp;</strong>{{card.name}}&nbsp;</p><span class="mana-cost">{{card.mana_cost}}</span>
             </div>
             {{/each}}
             <div class="col-xs-12"><hr class="solid" style="magin-bottom: 50px"></div>
             {{/if}}
-            {{#if deckOrg.mainCards.sorceries}}
+            {{#if deckOrg.sideboard.sorceries}}
             <div class="col-xs-12"><p class="innerheader">Sorceries</p></div>
-            {{#each deckOrg.mainCards.sorceries}}
+            {{#each deckOrg.sideboard.sorceries}}
             <div class="col-xs-12 col-sm-6">
                 <p style="display:inline;"><strong>{{count}}&nbsp;</strong>{{card.name}}&nbsp;</p><span class="mana-cost">{{card.mana_cost}}</span>
             </div>
             {{/each}}
             <div class="col-xs-12"><hr class="solid" style="magin-bottom: 50px"></div>
             {{/if}}
-            {{#if deckOrg.mainCards.planeswalkers}}
+            {{#if deckOrg.sideboard.planeswalkers}}
             <div class="col-xs-12"><p class="innerheader">Planeswalkers</p></div>
-            {{#each deckOrg.mainCards.planeswalkers}}
+            {{#each deckOrg.sideboard.planeswalkers}}
             <div class="col-xs-12 col-sm-6">
                 <p style="display:inline;"><strong>{{count}}&nbsp;</strong>{{card.name}}&nbsp;</p><span class="mana-cost">{{card.mana_cost}}</span>
             </div>
             {{/each}}
             <div class="col-xs-12"><hr class="solid" style="magin-bottom: 50px"></div>
             {{/if}}
-            {{#if deckOrg.mainCards.lands}}
+            {{#if deckOrg.sideboard.lands}}
             <div class="col-xs-12"><p class="innerheader">Lands</p></div>
-            {{#each deckOrg.mainCards.lands}}
+            {{#each deckOrg.sideboard.lands}}
             <div class="col-xs-12 col-sm-6">
                 <p style="display:inline;"><strong>{{count}}&nbsp;</strong>{{card.name}}&nbsp;</p><span class="mana-cost">{{card.mana_cost}}</span>
             </div>
             {{/each}}
             <div class="col-xs-12"><hr class="solid" style="magin-bottom: 50px"></div>
             {{/if}}
-            {{#if deckOrg.mainCards.others}}
+            {{#if deckOrg.sideboard.others}}
             <div class="col-xs-12"><p class="innerheader">Others</p></div>
-            {{#each deckOrg.mainCards.others}}
+            {{#each deckOrg.sideboard.others}}
             <div class="col-xs-12 col-sm-6">
                 <p style="display:inline;"><strong>{{count}}&nbsp;</strong>{{card.name}}&nbsp;</p><span class="mana-cost">{{card.mana_cost}}</span>
             </div>
             {{/each}}
             <div class="col-xs-12"><hr class="solid" style="magin-bottom: 50px"></div>
+            {{/if}}
             {{/if}}
             <!--- ===== END SIDEBOARD ===== -->
         </div>

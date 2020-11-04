@@ -1470,6 +1470,11 @@ a.atext:hover {
     color: #c4ae78;
 }
 
+/* strong {
+    color:#c4ae78;
+    font-weight: 500;
+} */
+
 
 
 @media (max-width: 768px){
@@ -1485,6 +1490,13 @@ a.atext:hover {
 .innerheader {
     font-family: "Cinzel Decorative", "Palatino Light", Times, "Times New Roman", Georgia, serif;
     color: #ad835a;
+}
+
+.innerTitle {
+    font-family: "Cinzel Decorative", "Palatino Light", Times, "Times New Roman", Georgia, serif;
+    color: #c4ae78;
+    font-size:130%;
+    margin-bottom: 25px;
 }
 
 hr.solid {
