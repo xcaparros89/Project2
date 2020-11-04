@@ -9,6 +9,7 @@
 <form action='/myDecks/modify/{{deckOrg.id}}' method='POST'>
 <button type='submit'>Modify deck</button>
 </form>
+<form action="/myDecks/delete/{{_id}}" method="POST"><button>Delete deck</button></form>   
 {{else}}
 <form action='/myDecks/copy/{{deckOrg.id}}' method='GET'>
 <button type='submit'>Copy deck</button>
@@ -21,7 +22,7 @@
         {{#if deckOrg.mainCards.lands}}
         <p>Lands</p>
         {{#each deckOrg.mainCards.lands}}
-        <p>{{count}} X {{card.name}} {{card.mana_cost}}</p>
+        <p>{{count}} X {{card.name}} <div class='mana-cost'>{{card.mana_cost}}</div></p>
         {{/each}}
         {{/if}}
         {{#if deckOrg.mainCards.artifacts}}
@@ -57,7 +58,7 @@
         {{#if deckOrg.mainCards.creatures}}
         <p>Creatures</p>
         {{#each deckOrg.mainCards.creatures}}
-        <p>{{count}} X {{card.name}} {{card.mana_cost}}</p>
+        <p>{{count}} X {{card.name}}  <div class='mana-cost'>{{card.mana_cost}}</div></p>
         {{/each}}
         {{/if}}
         {{#if deckOrg.mainCards.others}}

@@ -1453,3 +1453,22 @@ h3.profile-h{
     font-weight: 500;
     font-size: 2vh;
   }
+
+
+.color-unchecked{
+    opacity: 0.5;
+    width: 50%
+}
+
+.color-checked{
+    opacity:1;
+    width: 60%;
+}
+
+.symbol{
+    width: 20px;
+}
+
+.advParams-hide{
+    display:none;
+}

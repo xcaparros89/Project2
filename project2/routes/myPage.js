@@ -4,6 +4,7 @@ const Card = require("../models/Card");
 const User = require("../models/User");
 const Deck = require("../models/Deck");
 const bcrypt = require("bcryptjs");
+const uploadCloud = require("../config/cloudinary");
 const colors = require('colors');
 
 var router = express.Router();
@@ -71,9 +72,12 @@ router.use((req, res, next) => { // Todo lo que esta dentro del Array es protect
     } catch (error) {console.log(error);}
   });
 
-  router.post('/myCollection/modify/:id', async function(req, res, next){
+  router.post('/myCollection/modify/:id', uploadCloud.single("photo"), async function(req, res, next){
+  //router.post('/myCollection/modify/:id', async function(req, res, next){
     if(req.session.currentUser)res.locals.isLogged = true;
     try{
+    const imgPath = req.file.url;
+    const imgName = req.file.originalname;
     let userCards = req.session.currentUser.userCards;
     let newUserCards;
     let owned = Number(req.body.owned);
@@ -260,6 +264,7 @@ router.get('/makeDeck/save',async (req,res,next)=>{
 router.get("/myDecks", async function (req, res, next) {
     try {
         let myDecks = await Deck.find({authorId:req.session.currentUser._id});
+        myDecks.forEach(deck=>deck.colors = deck.colors.filter(color=>color === 'G' || color === 'B' || color === 'W' || color === 'U' || color === 'R').join(''));
       res.render("myPage/myDecks", {myDecks});
     } catch (error) {console.log(error);}
   });
@@ -284,7 +289,7 @@ router.get("/myDecks/copy/:id", async function (req, res, next) {
   newSideboard = newDeck.sideboard.map(cardObj=>{return {card: cardObj.card, count: cardObj.count};});
   console.log('here', newMainCards, newSideboard);
   await Deck.create({
-    title: newDeck.title,
+    title: 'COPY OF: ' + newDeck.title,
     description: newDeck.description,
     authorId: req.session.currentUser._id,
     mainCards: newMainCards,

@@ -98,6 +98,7 @@ router.post("/search/card/:id", async (req, res, next) => {
 // explore decks
 router.get('/search/deck', async (req, res, next)=>{
   let decks = await Deck.find();
+  decks.forEach(deck=>deck.colors = deck.colors.filter(color=>color === 'G' || color === 'B' || color === 'W' || color === 'U' || color === 'R').join(''));
   res.render('search/deck', {decks});
 });
 
@@ -108,6 +109,7 @@ router.post('/search/deck', async (req, res, next)=>{
   if(req.body.legalities && req.body.legalities!='All') params.push({legalities:{$in: [req.body.legalities]}});
   if(colors)typeof colors === 'object'? colors.forEach(col=>params.push({colors: {$in: [col]}})) : params.push({colors: {$in: [colors]}});
    let decks =  params.length? await Deck.find({$and: [...params]}) : await Deck.find();
+   deck.forEach(deck=>deck.colors = deck.colors.filter(color=>color === 'G' || color === 'B' || color === 'W' || color === 'U' || color === 'R').join(''));
   res.render('search/deck', {decks});
 });
 
@@ -115,15 +117,34 @@ let deck;
 router.get('/search/deck/:id', async (req, res, next)=>{
   deck = await Deck.findById(req.params.id).populate('mainCards.card').populate('sideboard.card');
   author = await User.findById(deck.authorId);
-  console.log(deck)
+  let missingCards = [];
   if( req.session.currentUser){
     res.locals.isLogged = true;
   res.locals.isUserAuthor = deck.authorId === req.session.currentUser._id? true : false;
   }
   let deckOrg={legalities:deck.legalities, colors:deck.colors, likes: deck.likes, dislikes:deck.dislikes, id:deck._id, title: deck.title, description:deck.description, author: author.username, replies: deck.replies, 
     mainCards:{lands:[], artifacts:[], enchantments:[], instants:[], sorceries:[], planeswalkers:[],creatures:[], others:[]}, sideboard:{lands:[], artifacts:[], enchantments:[], instants:[], sorceries:[], planeswalkers:[],creatures:[], others:[]}};
-  console.log('ci', deckOrg);
   deck.mainCards.forEach(cardObj=>{
+    if(req.session.currentUser){
+      let userCard = req.session.currentUser.userCards.filter((userCardObj)=> userCardObj._id == cardObj.card._id)[0];
+      if(userCard){
+        if(userCard.count - cardObj.count < 0){
+          missingCards.push(`${cardObj.count - userCard.count} ${cardObj.card.name}`)
+        }
+      } else{
+        missingCards.push(`${cardObj.count} ${cardObj.card.name}`)
+      }
+      console.log(missingCards);
+      // let index = req.session.currentUser.userCards._id.indexOf(cardObj.card._id);
+      // console.log(cardObj.card._id)
+      // missingCards.push(`${cardObj.count} ${cardObj.card.name}`);
+      // if(index != -1){
+      //   let userCard = req.session.currentUser.userCards[index];
+      //   console.log(userCard);}
+      //   if(cardObj.count - )
+      //   missingCards.push(`${} ${cardObj.card.name}`)
+      // } else { missingCards.push(`${cardObj.count} ${cardObj.card.name}`)}
+      }
       if (/Land/.test(cardObj.card.type_line)){deckOrg.mainCards.lands.push(cardObj);}
       else if (/Instant/.test(cardObj.card.type_line)){deckOrg.mainCards.instants.push(cardObj);}
       else if (/Enchantment/.test(cardObj.card.type_line)){deckOrg.mainCards.enchantments.push(cardObj);}
@@ -143,7 +164,7 @@ router.get('/search/deck/:id', async (req, res, next)=>{
     else if (/Artifact/.test(cardObj.card.type_line)){deckOrg.sideboard.artifacts.push(cardObj);}
     else {deckOrg.sideboard.others.push(cardObj);}
 });
-  console.log('deci', deckOrg);
+  console.log('miiiiiiiiiiiiiiiiiiiiiiiiii', missingCards)
   res.locals.likes = deck.likes.length;
   res.locals.dislikes = deck.dislikes.length;
   res.render('search/deckInfo', {deckOrg});
