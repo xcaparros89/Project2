@@ -1178,6 +1178,25 @@ padding-bottom: 4rem; }
     min-width: 100%;
 }
 
+.contact-form select {
+    border-radius: 0px;
+    width: 100%;
+    padding: 0.25rem;
+    list-style: none;
+    font-size: 14px;
+    text-align: center;
+    border: 1px solid #96744a;
+    -webkit-box-shadow: inset 0 0px 10px rgba(0, 0, 0, 0.275);
+    box-shadow: inset 0 0px 10px rgba(0, 0, 0, 0.275);
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+    margin: 0;
+    background-color: #29221c;
+    border: 1px solid #62351f;
+    border-top-color: #734a32;
+    color: #ffcb8d;
+}
+
 @media (max-width: 768px) {
     .contact-form textarea {
         min-width: 100%;
@@ -1423,26 +1442,32 @@ h3.profile-h{
     font-size: 2vh;
   }
 
+.color-search{
+    width:50%;
+    border-radius: 50%;
+}
 
 .color-unchecked{
-    opacity: 0.5;
-    width: 50%
+    opacity: 0.4;
 }
 
+.color-search:hover{
+    box-shadow: 0px 0px 20px 0px rgba(197, 187, 170, 0.8);
+}
 .color-checked{
     opacity:1;
-    width: 60%;
 }
+
 
 .symbol{
     width: 20px;
 }
 
-.advParams-hide{
+.hide-element{
     display:none;
 }
 
-p, textarea, input {
+p, textarea, input, select {
     font-family: Helvetica, Arial, sans-serif;
     color: #71675b;
 } 
@@ -1517,4 +1542,19 @@ hr.invisible {
     .collapsing {
         overflow: hidden!important;
     }
+}
+
+.colors-search-container{
+    display:flex;
+    justify-content: space-evenly;
+    text-align: center;
+    padding: 10px 0;
+}
+
+#legalities-select{
+        /* for Firefox */ 
+        -moz-appearance: none; 
+        /* for Safari, Chrome, Opera */ 
+        -webkit-appearance: none; 
+        color: #ffcb8d
 }

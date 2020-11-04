@@ -109,13 +109,17 @@ router.post('/search/deck', async (req, res, next)=>{
   if(req.session.currentUser) {
     res.locals.isLogged = true;
   }
+  console.log(req.body)
   let colors = req.body['colors[]'];
   let params = [];
   if(req.body.title) params.push({title: new RegExp(`(.*${req.body.title}).*`,'gi')});
-  if(req.body.legalities && req.body.legalities!='All') params.push({legalities:{$in: [req.body.legalities]}});
+  if(req.body.legalities && req.body.legalities!='Legality') params.push({legalities:{$in: [req.body.legalities]}});
   if(colors)typeof colors === 'object'? colors.forEach(col=>params.push({colors: {$in: [col]}})) : params.push({colors: {$in: [colors]}});
+  console.log(params)
    let decks =  params.length? await Deck.find({$and: [...params]}) : await Deck.find();
-   deck.forEach(deck=>deck.colors = deck.colors.filter(color=>color === 'G' || color === 'B' || color === 'W' || color === 'U' || color === 'R').join(''));
+   console.log(decks)
+   decks.forEach(deck=>deck.colors = deck.colors.filter(color=>color === 'G' || color === 'B' || color === 'W' || color === 'U' || color === 'R').join(''));
+   console.log(decks)
   res.render('search/deck', {decks});
 });
 
@@ -126,7 +130,7 @@ router.get('/search/deck/:id', async (req, res, next)=>{
   }
   deck = await Deck.findById(req.params.id).populate('mainCards.card').populate('sideboard.card');
   author = await User.findById(deck.authorId);
-  let missingCards = [];
+  let missingCards = req.session.currentUser? [] : ['not connected'];
   if( req.session.currentUser){
     res.locals.isLogged = true;
   res.locals.isUserAuthor = deck.authorId === req.session.currentUser._id? true : false;
@@ -138,21 +142,11 @@ router.get('/search/deck/:id', async (req, res, next)=>{
       let userCard = req.session.currentUser.userCards.filter((userCardObj)=> userCardObj._id == cardObj.card._id)[0];
       if(userCard){
         if(userCard.count - cardObj.count < 0){
-          missingCards.push(`${cardObj.count - userCard.count} ${cardObj.card.name}`)
+          missingCards.push({string: `${cardObj.count - userCard.count} ${cardObj.card.name}`, name: cardObj.card.name})
         }
       } else{
-        missingCards.push(`${cardObj.count} ${cardObj.card.name}`)
+        missingCards.push({string: `${cardObj.count} ${cardObj.card.name}`, name: cardObj.card.name})
       }
-      console.log(missingCards);
-      // let index = req.session.currentUser.userCards._id.indexOf(cardObj.card._id);
-      // console.log(cardObj.card._id)
-      // missingCards.push(`${cardObj.count} ${cardObj.card.name}`);
-      // if(index != -1){
-      //   let userCard = req.session.currentUser.userCards[index];
-      //   console.log(userCard);}
-      //   if(cardObj.count - )
-      //   missingCards.push(`${} ${cardObj.card.name}`)
-      // } else { missingCards.push(`${cardObj.count} ${cardObj.card.name}`)}
       }
       if (/Land/.test(cardObj.card.type_line)){deckOrg.mainCards.lands.push(cardObj);}
       else if (/Instant/.test(cardObj.card.type_line)){deckOrg.mainCards.instants.push(cardObj);}
@@ -164,6 +158,16 @@ router.get('/search/deck/:id', async (req, res, next)=>{
       else {deckOrg.mainCards.others.push(cardObj);}
   });
   deck.sideboard.forEach(cardObj=>{
+    if(req.session.currentUser){
+      let userCard = req.session.currentUser.userCards.filter((userCardObj)=> userCardObj._id == cardObj.card._id)[0];
+      if(userCard){
+        if(userCard.count - cardObj.count < 0){
+          missingCards.push({string: `${cardObj.count - userCard.count} ${cardObj.card.name}`, name: cardObj.card.name})
+        }
+      } else{
+        missingCards.push({string: `${cardObj.count} ${cardObj.card.name}`, name: cardObj.card.name})
+      }
+      }
     if (/Land/.test(cardObj.card.type_line)){deckOrg.sideboard.lands.push(cardObj);}
     else if (/Instant/.test(cardObj.card.type_line)){deckOrg.sideboard.instants.push(cardObj);}
     else if (/Enchantment/.test(cardObj.card.type_line)){deckOrg.sideboard.lands.push(cardObj);}
@@ -173,7 +177,8 @@ router.get('/search/deck/:id', async (req, res, next)=>{
     else if (/Artifact/.test(cardObj.card.type_line)){deckOrg.sideboard.artifacts.push(cardObj);}
     else {deckOrg.sideboard.others.push(cardObj);}
 });
-  console.log('miiiiiiiiiiiiiiiiiiiiiiiiii', missingCards)
+  
+  deckOrg.missingCards = missingCards.length === 0 ? [{string:'You own all the cards of this deck'}] : missingCards;
   res.locals.likes = deck.likes.length;
   res.locals.dislikes = deck.dislikes.length;
   res.render('search/deckInfo', {deckOrg});

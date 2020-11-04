@@ -10,11 +10,11 @@ function clicked(mana){
     console.log(mana)
 }
 
-function showHide(){
-    let advParams = document.getElementById('advParams');
-    if(advParams.classList.contains('advParams-hide')){
-        advParams.classList.remove('advParams-hide');
+function showHide(el){
+    let advParams = document.getElementById(el);
+    if(advParams.classList.contains('hide-element')){
+        advParams.classList.remove('hide-element');
     } else{
-        advParams.classList.add('advParams-hide');
+        advParams.classList.add('hide-element');
     }
 }

@@ -35,7 +35,9 @@ router.use((req, res, next) => { // Todo lo que esta dentro del Array es protect
     res.render("myPage/modifyProfile", {user:req.session.currentUser});
   })
 
-  router.post("/modifyProfile", async function (req, res, next) {
+  router.post("/modifyProfile", uploadCloud.single("photo"), async function (req, res, next) {
+    const imgPath = req.file.url;
+    const imgName = req.file.originalname;
     const userEmail = await User.findOne({ email: req.body.email });
     if (userEmail !== null && userEmail._id != req.session.currentUser._id) {
       res.locals.error = 'The email already exists!'
@@ -67,6 +69,7 @@ router.use((req, res, next) => { // Todo lo que esta dentro del Array es protect
     res.render("myPage/profile", {user:req.session.currentUser});
   })
 
+
   //My cards
   router.get("/myCollection", async function (req, res, next) {
     if(req.session.currentUser) res.locals.isLogged = true;
@@ -78,12 +81,10 @@ router.use((req, res, next) => { // Todo lo que esta dentro del Array es protect
     } catch (error) {console.log(error);}
   });
 
-  router.post('/myCollection/modify/:id', uploadCloud.single("photo"), async function(req, res, next){
+  router.post('/myCollection/modify/:id', async function(req, res, next){
   //router.post('/myCollection/modify/:id', async function(req, res, next){
     if(req.session.currentUser)res.locals.isLogged = true;
     try{
-    const imgPath = req.file.url;
-    const imgName = req.file.originalname;
     let userCards = req.session.currentUser.userCards;
     let newUserCards;
     let owned = Number(req.body.owned);
@@ -269,9 +270,10 @@ router.get('/makeDeck/save',async (req,res,next)=>{
           replies: []
         });
     }
+    let id = currentDeck;
     currentDeck='';
     newDeck = ''; 
-    res.redirect("/myDecks");
+    res.redirect(`/search/deck/${id}`);
   }else {
     newDeck.mistakes = mistakes;
     res.render("myPage/makeDeck", { newDeck });
@@ -297,7 +299,9 @@ router.post('/myDecks/modify/:id', async function (req,res,next){
   let sideboard = [];
   myDeck.mainCards.forEach(cardObj=>{mainCards.push({card:cardObj.card, count:cardObj.count})});
   myDeck.sideboard.forEach(cardObj=>{sideboard.push({card:cardObj.card, count:cardObj.count})});
-  newDeck = {title:myDeck.title, description:myDeck.description, cards: {main:mainCards, side:sideboard, undecided:[]}};
+  let newTitle = myDeck.title.split(' ').join('&nbsp');
+  let newDescription = myDeck.description.split(' ').join('&nbsp');
+  newDeck = {title:myDeck.title, description:description, cards: {main:mainCards, side:sideboard, undecided:[]}};
   console.log(newDeck.cards.main)
   res.render('myPage/makeDeck', {newDeck});
 });
