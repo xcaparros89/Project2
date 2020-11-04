@@ -1,12 +1,17 @@
     <h2>Deck search</h2>
 <form action="/search/deck" method="post">
     <label for="title">Title: <input type="text" name="title" /></label><br />
+<<<<<<< HEAD
     
     <input type="checkbox" name="colors[]" value="B"><label for='colors[]'></label>Black</label>
+=======
+>>>>>>> staging
     <input type="checkbox" name="colors[]" value="W"><label for='colors[]'></label>White</label>
     <input type="checkbox" name="colors[]" value="G"><label for='colors[]'></label>Green</label>
+    <label for='colors[]'><input type="checkbox" name="colors[]" value="B">Black</label>
     <input type="checkbox" name="colors[]" value="R"><label>Red</label>
     <input type="checkbox" name="colors[]" value="U"><label>Blue</label><br/>
+<<<<<<< HEAD
     <input type="checkbox" name="legalities[]" value="standard"><label>Standard</label>
     <input type="checkbox" name="legalities[]" value="future"><label>Future</label>
     <input type="checkbox" name="legalities[]" value="historic"><label>Historic</label>
@@ -25,6 +30,26 @@
     <input type="checkbox" name="checkbox" id="checkbox_id" value="value">
 <label for="checkbox_id"><img src="/img/mana-cost/g.png" alt=""></label>
 
+=======
+    <p>Legality:</p>
+    <select name='legalities'>
+        <option>All</option>
+        <option value="standard">Standard</option>
+        <option value="future">Future</option>
+        <option value="historic">Historic</option>
+        <option value="pionner">Pionner</option>
+        <option value="modern">Modern</option>
+        <option value="legacy">Legacy</option>
+        <option value="pauper">Pauper</option>
+        <option value="vintage">Vintage</option>
+        <option value="penny">Penny</option>
+        <option value="commander">Commander</option>
+        <option value="brawl">Brawl</option>
+        <option value="duel">Duel</option>
+        <option value="oldschool">Oldschool</option>
+    </select> 
+    <button type='submit'>Search</button>
+>>>>>>> staging
 </form>
 <div>
     <ul>

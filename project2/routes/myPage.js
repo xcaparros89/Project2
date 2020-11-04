@@ -3,7 +3,7 @@ const Filter = require('bad-words');
 const Card = require("../models/Card");
 const User = require("../models/User");
 const Deck = require("../models/Deck");
-
+const bcrypt = require("bcryptjs");
 const colors = require('colors');
 
 var router = express.Router();
@@ -21,9 +21,13 @@ router.use((req, res, next) => { // Todo lo que esta dentro del Array es protect
   
   //Profile
   router.get("/profile", function (req, res, next) {
+<<<<<<< HEAD
     if(req.session.currentUser) {
       res.locals.isLogged = true;
     }
+=======
+    //req.session.currentUser = await User.findOne({})
+>>>>>>> staging
     res.render("myPage/profile", {user:req.session.currentUser});
   })
 
@@ -35,8 +39,34 @@ router.use((req, res, next) => { // Todo lo que esta dentro del Array es protect
   })
 
   router.post("/modifyProfile", async function (req, res, next) {
-    newuser = await User.findByIdAndUpdate(req.session.currentUser._id, {username: req.body.username, email:req.body.email, password:req.body.password});
-    req.session.currentUser = newuser;
+    const userEmail = await User.findOne({ email: req.body.email });
+    if (userEmail !== null && userEmail._id != req.session.currentUser._id) {
+      res.locals.error = 'The email already exists!'
+      res.render("myPage/modifyProfile", {user:req.session.currentUser});
+      return;
+    }
+    const repeatedUser = await User.findOne({ username: req.body.username });
+    if (repeatedUser !== null && repeatedUser._id != req.session.currentUser._id) {
+      res.locals.error = 'The username already exists!'
+      res.render("myPage/modifyProfile", {user:req.session.currentUser});
+      return;
+    }
+
+    if(req.body.password != req.body.password2){
+      res.locals.error = 'The passwords do not match!'
+      res.render("myPage/modifyProfile", {user:req.session.currentUser});
+    }
+    const salt = bcrypt.genSaltSync(10);
+    let newUsername = req.body.username;
+    let newEmail = req.body.email;
+    let newUser;
+    if(req.body.password){
+      const hashPass = bcrypt.hashSync(req.body.password, salt);
+      newUser = await User.findByIdAndUpdate(req.session.currentUser._id, {username: newUsername, email:newEmail , password:hashPass}, {new: true})
+    }else{ 
+      newUser = await User.findByIdAndUpdate(req.session.currentUser._id, {username: newUsername, email:newEmail}, {new: true});
+   }
+    req.session.currentUser = newUser;
     res.render("myPage/profile", {user:req.session.currentUser});
   })
 

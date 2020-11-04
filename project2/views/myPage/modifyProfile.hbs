@@ -1,13 +1,3 @@
-<h1>Profile</h1>
-<p>Username:<span><input type='text' name='username' value='{{user.username}}'></span></p>
-<p>Email:<span><input type='text' name='email' value='{{user.email}}'></span></p>
-<p>Password:<span><input type='text' name='password' placeholder='Add new password'></span></p>
-<p>add more...<span></span></p>
-<p>Modify profile:</p>
-<form action="/modifyProfile" method="POST">
-    <button type='submit' >Modify</button>
-</form>
-
 <!-- myPage/profile.hbs -->
 {{!-- <div class="row pattern-soldier avoidSticked" style="min-height:100vh">
 <div class="container-fluid" style="min-height: 85vh">
@@ -18,18 +8,22 @@
     </div>
     <div class="row">
         <div class="col-xs-8 col-xs-offset-2">
-            <form id="form" class="contact-form login-form" action="/login" method="POST">
-                <input type="text" name="username" placeholder="Username / Email" onfocus="this.placeholder=''" onblur="this.placeholder='Username / Email'"/>
-                <input type="password" name="password" placeholder="Password" onfocus="this.placeholder=''" onblur="this.placeholder='Password'"/>
+            <form id="form" class="contact-form login-form" action="/modifyProfile" method="POST">
+                <p>Username:<span><input type='text' name='username' value='{{user.username}}'></span></p>
+                <p>Email:<span><input type='text' name='email' value='{{user.email}}'></span></p>
+                <p>Password:<span><input type='password' name='password' placeholder='Add new password'></span></p>
+                <p>Password:<span><input type='password' name='password2' placeholder='Repeat new password'></span></p>
+                <p>Profile image:<span></span></p>
                 <div class="col-xs-10 col-xs-offset-1" style="min-width:195px">
                     <a href="javascript:$('#form').submit();"  class="button-game">
                         <span class="button-game-bg-left"></span>
                         <span class="button-game-bg-mid">
-                            <span class="ion-log-in  button-game-apple"></span><span>&nbsp;&nbsp;&nbsp;Log in</span>
+                            <span type='submit' class="ion-log-in button-game-apple"></span><span>&nbsp;&nbsp;&nbsp;Update Profile</span>
                         </span> 
                         <span class="button-game-bg-right"></span>
                     </a>
                 </div>
+                <div>{{error}}</div>
             </form>
         </div>
     </div>

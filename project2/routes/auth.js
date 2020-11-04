@@ -22,7 +22,7 @@ router.post("/signup", async (req, res, next) => {
   }
 
   // desestructuramos el email y el password de req.body
-  const { username, email, password } = req.body;
+  const { username, email, password, password2 } = req.body;
 
   // creamos la salt y hacemos hash del password
   const salt = bcrypt.genSaltSync(10);
@@ -47,12 +47,21 @@ router.post("/signup", async (req, res, next) => {
       });
       return;
     }
+
+    if(password != password2){
+      res.render("auth/signup", {
+        errorMessage: "The passwords do not match!",
+      });
+      return;
+    }
+
     await User.create({
       username,
       email,
       password: hashPass,
     });
-    res.redirect("/");
+    req.session.currentUser = user;
+    res.redirect("/myCollection");
   } catch (error) {
     next(error);
   }
@@ -88,7 +97,7 @@ router.post("/login", async (req, res, next) => {
       // guardar el usuario en la session
       req.session.currentUser = user;
       console.log(user)
-      res.redirect("/");
+      res.redirect("/myCollection");
     } else {
       res.render("auth/login", {
         errorMessage: "Incorrect password",

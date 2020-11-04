@@ -12,3 +12,5 @@ manaCost.forEach(card=>{
         });
     card.innerHTML = innerHTML;
     });
+
+let colors = document.querySelectorAll('.colors');
