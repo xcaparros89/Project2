@@ -68,6 +68,9 @@ router.post("/signup", async (req, res, next) => {
 });
 
 router.get("/login", (req, res, next) => {
+  if(req.session.currentUser) {
+    res.locals.isLogged = true;
+  }
   res.render("auth/login");
 });
 

@@ -1,4 +1,21 @@
-<h1>{{deckOrg.title}}</h1>
+<!-- search/deckInfo.hbs -->
+<div class="row pattern-ugin avoidSticked" style="min-height:85vh">
+    <div class="container-fluid">
+        <div class="row pattern-dark">
+            <div class="col-xs-12">
+                <h2>{{deckOrg.title}}</h2>
+            </div>
+        </div>
+            <!-- ============== BIG DIVIDER ============== -->
+            <div class="Divider">
+                <hr class="Divider-rule">
+            </div>
+            <!-- ============== /BIG DIVIDER ============== -->
+        <!-- ============== SECTION WRAPPER ============== -->
+
+
+
+<!-- ===== START XAVI ===== -->
 <form action='/deckInfo/like' method='GET'>
     <p>Likes: {{likes}}</p><button type='submit'>Like</button>
 </form>
@@ -28,31 +45,31 @@
         {{#if deckOrg.mainCards.artifacts}}
         <p>Artifacts</p>
         {{#each deckOrg.mainCards.artifacts}}
-        <p>{{count}} X {{card.name}} {{card.mana_cost}}</p>
+        <p>{{count}} X {{card.name}}<div class="mana-cost">{{card.mana_cost}}</div></p>
         {{/each}}
         {{/if}}
         {{#if deckOrg.mainCards.enchantments}}
         <p>Enchantments</p>
         {{#each deckOrg.mainCards.enchantments}}
-        <p>{{count}} X {{card.name}} {{card.mana_cost}}</p>
+        <p>{{count}} X {{card.name}}<div class="mana-cost">{{card.mana_cost}}</div></p>
         {{/each}}
         {{/if}}
         {{#if deckOrg.mainCards.instants}}
         <p>Instants</p>
         {{#each deckOrg.mainCards.instants}}
-        <p>{{count}} X {{card.name}} {{card.mana_cost}}</p>
+        <p>{{count}} X {{card.name}}<div class="mana-cost">{{card.mana_cost}}</div></p>
         {{/each}}
         {{/if}}
         {{#if deckOrg.mainCards.sorceries}}
         <p>Sorceries</p>
         {{#each deckOrg.mainCards.sorceries}}
-        <p>{{count}} X {{card.name}} {{card.mana_cost}}</p>
+        <p>{{count}} X {{card.name}}<div class="mana-cost">{{card.mana_cost}}</div></p>
         {{/each}}
         {{/if}}
         {{#if deckOrg.mainCards.planeswalkers}}
         <p>Planeswalkers</p>
         {{#each deckOrg.mainCards.planeswalkers}}
-        <p>{{count}} X {{card.name}} {{card.mana_cost}}</p>
+        <p>{{count}} X {{card.name}}<div class="mana-cost">{{card.mana_cost}}</div></p>
         {{/each}}
         {{/if}}
         {{#if deckOrg.mainCards.creatures}}
@@ -64,70 +81,96 @@
         {{#if deckOrg.mainCards.others}}
         <p>Others</p>
         {{#each deckOrg.mainCards.others}}
-        <p>{{count}} X {{card.name}} {{card.mana_cost}}</p>
+        <p>{{count}} X {{card.name}}<div class="mana-cost">{{card.mana_cost}}</div></p>
         {{/each}}
         {{/if}}
     <p>Side deck</p>
         {{#if deckOrg.sideboard.lands}}
         <p>Lands</p>
         {{#each deckOrg.sideboard.lands}}
-        <p>{{count}} X {{card.name}} {{card.mana_cost}}</p>
+        <p>{{count}} X {{card.name}}<div class="mana-cost">{{card.mana_cost}}</div></p>
         {{/each}}
         {{/if}}
         {{#if deckOrg.sideboard.artifacts}}
         <p>Artifacts</p>
         {{#each deckOrg.sideboard.artifacts}}
-        <p>{{count}} X {{card.name}} {{card.mana_cost}}</p>
+        <p>{{count}} X {{card.name}}<div class="mana-cost">{{card.mana_cost}}</div></p>
         {{/each}}
         {{/if}}
         {{#if deckOrg.sideboard.enchantments}}
         <p>Enchantments</p>
         {{#each deckOrg.sideboard.enchantments}}
-        <p>{{count}} X {{card.name}} {{card.mana_cost}}</p>
+        <p>{{count}} X {{card.name}}<div class="mana-cost">{{card.mana_cost}}</div></p>
         {{/each}}
         {{/if}}
         {{#if deckOrg.sideboard.instants}}
         <p>Instants</p>
         {{#each deckOrg.sideboard.instants}}
-        <p>{{count}} X {{card.name}} {{card.mana_cost}}</p>
+        <p>{{count}} X {{card.name}}<div class="mana-cost">{{card.mana_cost}}</div></p>
         {{/each}}
         {{/if}}
         {{#if deckOrg.sideboard.sorceries}}
         <p>Sorceries</p>
         {{#each deckOrg.sideboard.sorceries}}
-        <p>{{count}} X {{card.name}} {{card.mana_cost}}</p>
+        <p>{{count}} X {{card.name}}<div class="mana-cost">{{card.mana_cost}}</div></p>
         {{/each}}
         {{/if}}
         {{#if deckOrg.sideboard.planeswalkers}}
         <p>Planeswalkers</p>
         {{#each deckOrg.sideboard.planeswalkers}}
-        <p>{{count}} X {{card.name}} {{card.mana_cost}}</p>
+        <p>{{count}} X {{card.name}}<div class="mana-cost">{{card.mana_cost}}</div></p>
         {{/each}}
         {{/if}}
         {{#if deckOrg.sideboard.creatures}}
         <p>Creatures</p>
         {{#each deckOrg.sideboard.creatures}}
-        <p>{{count}} X {{card.name}} {{card.mana_cost}}</p>
+        <p>{{count}} X {{card.name}}<div class="mana-cost">{{card.mana_cost}}</div></p>
         {{/each}}
         {{/if}}
         {{#if deckOrg.sideboard.others}}
         <p>Others</p>
         {{#each deckOrg.sideboard.others}}
-        <p>{{count}} X {{card.name}} {{card.mana_cost}}</p>
+        <p>{{count}} X {{card.name}}<div class="mana-cost">{{card.mana_cost}}</div></p>
         {{/each}}
         {{/if}}
 </div>
-<div>
-    <h2>Make a reply</h2>
-    <form action='/deckInfo/reply' method='POST'>
-        <input type='text' name='reply'>
-        <button type='submit'>Submit</button>
-    </form>
-</div>
-<div>
-    <h2>Replies</h2>
-    {{#each deckOrg.replies}}
-    <p>{{message}}</p>
-    <p>{{author}}</p>
-    {{/each}}
+<!-- ===== // END XAVI ===== -->
+
+        <!-- ===== COMMENTS ===== -->
+        <div class="container text-center mw750">
+            <!-- INNER DIVIDER -->
+            <div class="col-xs-12 items-container bottom-wrapper">
+                <p>&nbsp;</p>
+            </div>
+            <!-- /INNER DIVIDER -->
+            <h2>Comments</h2>
+            <form id="form" class="contact-form" action='/deckInfo/reply' method='POST'>
+                <textarea name="reply" placeholder="What are your thoughts?" rows="4" cols=""></textarea></br>
+                <a href="javascript:$('#form').submit();" class="button-game btn-new-deck">
+                    <span class="button-game-bg-left"></span>
+                    <span class="button-game-bg-mid">
+                    <span>Comment</span>
+                    </span> 
+                    <span class="button-game-bg-right"></span>
+                </a>
+            </form>
+        </div>
+        <div class="container mw750">
+            <!-- INNER DIVIDER -->
+            <div class="col-xs-12 items-container bottom-wrapper" style="margin-bottom:25px">
+                <p>&nbsp;</p>
+            </div>
+            <!-- /INNER DIVIDER -->
+            {{#each deckOrg.replies}}
+                <p><span class="innerheader">{{author}}</span></p>
+                <p class="comment">{{message}}</p>
+            <hr class="solid">
+            {{/each}}
+        </div>
+        <hr class="invisible">
+        <!-- ===== END COMMENTS ===== -->
+
+    </div>
+
+    </div>
 </div>

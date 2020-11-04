@@ -97,12 +97,18 @@ router.post("/search/card/:id", async (req, res, next) => {
 
 // explore decks
 router.get('/search/deck', async (req, res, next)=>{
+  if(req.session.currentUser) {
+    res.locals.isLogged = true;
+  }
   let decks = await Deck.find();
   decks.forEach(deck=>deck.colors = deck.colors.filter(color=>color === 'G' || color === 'B' || color === 'W' || color === 'U' || color === 'R').join(''));
   res.render('search/deck', {decks});
 });
 
 router.post('/search/deck', async (req, res, next)=>{
+  if(req.session.currentUser) {
+    res.locals.isLogged = true;
+  }
   let colors = req.body['colors[]'];
   let params = [];
   if(req.body.title) params.push({title: new RegExp(`(.*${req.body.title}).*`,'gi')});
@@ -115,6 +121,9 @@ router.post('/search/deck', async (req, res, next)=>{
 
 let deck;
 router.get('/search/deck/:id', async (req, res, next)=>{
+  if(req.session.currentUser) {
+    res.locals.isLogged = true;
+  }
   deck = await Deck.findById(req.params.id).populate('mainCards.card').populate('sideboard.card');
   author = await User.findById(deck.authorId);
   let missingCards = [];
@@ -179,6 +188,9 @@ router.post('/deckInfo/reply', async (req,res,next)=>{
 });
 
 router.get('/deckInfo/like', async (req,res,next)=>{
+  if(req.session.currentUser) {
+    res.locals.isLogged = true;
+  }
   let newLike = false;
   deck.likes.forEach(like=>{if(like == req.session.currentUser._id) newLike = true;});
   if(!newLike){
@@ -189,6 +201,9 @@ router.get('/deckInfo/like', async (req,res,next)=>{
 })
 
 router.get('/deckInfo/dislike', async (req,res,next)=>{
+  if(req.session.currentUser) {
+    res.locals.isLogged = true;
+  }
   let newDislike = false;
   deck.dislikes.forEach(dislike=>{if(dislike == req.session.currentUser._id) newDislike = true;});
   if(!newDislike){

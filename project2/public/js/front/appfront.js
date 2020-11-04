@@ -75,7 +75,7 @@ $(document).ready(function() {
         inputN.attr('value', dataModel.data('count'));
 
         label.text(dataModel.data('name')); // Set Modal Title
-        
+       console.log('Hi, ', buyCard); 
         buyCard[0].innerHTML=`<a href="${dataModel.data('buy')}" class="buy-card" target="_blank" style="white-space:pre"><span class="ion-android-cart incIconSize"></span>  Buy this card</a>`;
         
         img.attr('src', dataModel.attr('src'));
