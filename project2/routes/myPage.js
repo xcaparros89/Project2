@@ -21,7 +21,6 @@ router.use((req, res, next) => { // Todo lo que esta dentro del Array es protect
   
   //Profile
   router.get("/profile", function (req, res, next) {
-    //req.session.currentUser = await User.findOne({})
     res.render("myPage/profile", {user:req.session.currentUser});
   })
 
