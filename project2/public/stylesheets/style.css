@@ -1436,6 +1436,7 @@ h3.profile-h{
 
 .symbol{
     width: 20px;
+    padding:2px;
 }
 
 .advParams-hide{
@@ -1456,8 +1457,23 @@ p, textarea, input {
     font-size:18px;
 }
 
+a.atext, p.atext {
+    font-family: "Cinzel Decorative", "Palatino Light", Times, "Times New Roman", Georgia, serif;
+    font-size:18px;
+    color: #ad835a;
+    transition: all 0.5s ease-in-out;
+}
+
+a.atext:hover {
+    font-size:18px;
+    text-decoration: none;
+    color: #c4ae78;
+}
+
+
+
 @media (max-width: 768px){
-    .contact-form textarea, .comment {
+    .contact-form textarea, .comment, .atext, .atext:hover {
         font-size: 16px;
     }
 }
@@ -1479,6 +1495,8 @@ hr.invisible {
     margin-bottom:15px;
     visibility: hidden;
 }
+
+
 
   /* Increase navbar collapse point*/
 @media (max-width: 991px) {

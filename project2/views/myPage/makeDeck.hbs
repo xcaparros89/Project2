@@ -2,8 +2,8 @@
     <div class='col-12'>
         <h1>{{newDeck.title}}</h1>
         <form action="/makeDeck/modify/text" method="POST">
-        <input name='title' type='text' value={{newDeck.title}}>
-        <input name='description' type='text' value={{newDeck.description}} >
+        <input name='title' type='text' value="{{newDeck.title}}">
+        <input name='description' type='text' value="{{newDeck.description}}">
         <button type='submit'>Change</button>
         </form>
         <p>{{newDeck.mistakes}}</p>

@@ -6,161 +6,235 @@
                 <h2>{{deckOrg.title}}</h2>
             </div>
         </div>
-        <!-- ============== BIG DIVIDER ============== -->
+        <!-- ============== START BIG DIVIDER ============== -->
         <div class="Divider">
             <hr class="Divider-rule">
         </div>
-        <!-- ============== /BIG DIVIDER ============== -->
+        <!-- ============== END BIG DIVIDER ============== -->
         <!-- ===== START DECK CARDS ===== -->
         <div class="container mw750">
-            <div class="col-xs-12" style="background-color:greenyellow">
+            <!-- ===== START DECK CARDS HEADER =====-->
+            <div class="col-xs-12">
                 <p>Author: {{deckOrg.author}}</p>
                 <p>{{deckOrg.description}}</p>
                 <p>Main deck</p>
             </div>
-            {{#if deckOrg.mainCards.lands}}
-            <div class="col-xs-12"style="background-color:pink"><p>Lands</p></div>
-            {{#each deckOrg.mainCards.lands}}
-            <div class="col-xs-12 col-sm-6"style="background-color:pink">
+            <!-- ===== END DECK CARDS HEADER =====-->
+            <!-- ===== START MAIN DECK =====-->
+            {{#if deckOrg.mainCards.creatures}}
+            <div class="col-xs-12"><p class="innerheader">Creatures</p></div>
+            {{#each deckOrg.mainCards.creatures}}
+            <div class="col-xs-12 col-sm-6">
                 <p style="display:inline;"><strong>{{count}}&nbsp;</strong>{{card.name}}&nbsp;</p><span class="mana-cost">{{card.mana_cost}}</span>
             </div>
             {{/each}}
+            <div class="col-xs-12"><hr class="solid" style="magin-bottom: 50px"></div>
             {{/if}}
             {{#if deckOrg.mainCards.artifacts}}
-            <div class="col-xs-12"style="background-color:orange"><p>Artifacts</p></div>
+            <div class="col-xs-12"><p class="innerheader">Artifacts</p></div>
             {{#each deckOrg.mainCards.artifacts}}
-            <div class="col-xs-12 col-sm-6"style="background-color:orange">
+            <div class="col-xs-12 col-sm-6">
                 <p style="display:inline;"><strong>{{count}}&nbsp;</strong>{{card.name}}&nbsp;</p><span class="mana-cost">{{card.mana_cost}}</span>
             </div>
             {{/each}}
+            <div class="col-xs-12"><hr class="solid" style="magin-bottom: 50px"></div>
             {{/if}}
             {{#if deckOrg.mainCards.enchantments}}
-            <div class="col-xs-12"><p>Enchantments</p></div>
+            <div class="col-xs-12"><p class="innerheader">Enchantments</p></div>
             {{#each deckOrg.mainCards.enchantments}}
-            <div class="col-xs-12 col-sm-6"style="background-color:red">
+            <div class="col-xs-12 col-sm-6">
                 <p style="display:inline;"><strong>{{count}}&nbsp;</strong>{{card.name}}&nbsp;</p><span class="mana-cost">{{card.mana_cost}}</span>
             </div>
             {{/each}}
+            <div class="col-xs-12"><hr class="solid" style="magin-bottom: 50px"></div>
             {{/if}}
             {{#if deckOrg.mainCards.instants}}
-            <div class="col-xs-12"><p>Instants</p></div>
+            <div class="col-xs-12"><p class="innerheader">Instants</p></div>
             {{#each deckOrg.mainCards.instants}}
-            <div class="col-xs-12 col-sm-6"style="background-color:gold">
+            <div class="col-xs-12 col-sm-6">
                 <p style="display:inline;"><strong>{{count}}&nbsp;</strong>{{card.name}}&nbsp;</p><span class="mana-cost">{{card.mana_cost}}</span>
             </div>
             {{/each}}
+            <div class="col-xs-12"><hr class="solid" style="magin-bottom: 50px"></div>
             {{/if}}
             {{#if deckOrg.mainCards.sorceries}}
-            <div class="col-xs-12"><p>Sorceries</p></div>
+            <div class="col-xs-12"><p class="innerheader">Sorceries</p></div>
             {{#each deckOrg.mainCards.sorceries}}
-            <div class="col-xs-12 col-sm-6"style="background-color:blue">
+            <div class="col-xs-12 col-sm-6">
                 <p style="display:inline;"><strong>{{count}}&nbsp;</strong>{{card.name}}&nbsp;</p><span class="mana-cost">{{card.mana_cost}}</span>
             </div>
             {{/each}}
+            <div class="col-xs-12"><hr class="solid" style="magin-bottom: 50px"></div>
             {{/if}}
-
-            
             {{#if deckOrg.mainCards.planeswalkers}}
-            <div class="col-xs-12"><p>Planeswalkers</p></div>
+            <div class="col-xs-12"><p class="innerheader">Planeswalkers</p></div>
             {{#each deckOrg.mainCards.planeswalkers}}
-            <div class="col-xs-12 col-sm-6"style="background-color:brown">
+            <div class="col-xs-12 col-sm-6">
                 <p style="display:inline;"><strong>{{count}}&nbsp;</strong>{{card.name}}&nbsp;</p><span class="mana-cost">{{card.mana_cost}}</span>
             </div>
             {{/each}}
+            <div class="col-xs-12"><hr class="solid" style="magin-bottom: 50px"></div>
             {{/if}}
-            {{#if deckOrg.mainCards.creatures}}
-            <div class="col-xs-12"><p>Creatures</p></div>
-            {{#each deckOrg.mainCards.creatures}}
-            <div class="col-xs-12 col-sm-6"style="background-color:purple">
+            {{#if deckOrg.mainCards.lands}}
+            <div class="col-xs-12"><p class="innerheader">Lands</p></div>
+            {{#each deckOrg.mainCards.lands}}
+            <div class="col-xs-12 col-sm-6">
                 <p style="display:inline;"><strong>{{count}}&nbsp;</strong>{{card.name}}&nbsp;</p><span class="mana-cost">{{card.mana_cost}}</span>
             </div>
             {{/each}}
+            <div class="col-xs-12"><hr class="solid" style="magin-bottom: 50px"></div>
             {{/if}}
-
-            
             {{#if deckOrg.mainCards.others}}
-            <div class="col-xs-12"><p>Others</p></div>
+            <div class="col-xs-12"><p class="innerheader">Others</p></div>
             {{#each deckOrg.mainCards.others}}
-            <div class="col-xs-12 col-sm-6"style="background-color:green">
-                <p>{{count}} X {{card.name}}<div class="mana-cost">{{card.mana_cost}}</div></p>
+            <div class="col-xs-12 col-sm-6">
+                <p style="display:inline;"><strong>{{count}}&nbsp;</strong>{{card.name}}&nbsp;</p><span class="mana-cost">{{card.mana_cost}}</span>
             </div>
             {{/each}}
+            <div class="col-xs-12"><hr class="solid" style="magin-bottom: 50px"></div>
             {{/if}}
-
+            <!-- ===== END MAIN DECK ===== -->
+            <!-- ===== START SIDEBOARD ===== -->
             <div class="col-xs-12"><p>Side deck</p></div>
-                {{#if deckOrg.sideboard.lands}}
-                <p>Lands</p>
-                {{#each deckOrg.sideboard.lands}}
-                <p>{{count}} X {{card.name}}<div class="mana-cost">{{card.mana_cost}}</div></p>
-                {{/each}}
-                {{/if}}
-                {{#if deckOrg.sideboard.artifacts}}
-                <p>Artifacts</p>
-                {{#each deckOrg.sideboard.artifacts}}
-                <p>{{count}} X {{card.name}}<div class="mana-cost">{{card.mana_cost}}</div></p>
-                {{/each}}
-                {{/if}}
-                {{#if deckOrg.sideboard.enchantments}}
-                <p>Enchantments</p>
-                {{#each deckOrg.sideboard.enchantments}}
-                <p>{{count}} X {{card.name}}<div class="mana-cost">{{card.mana_cost}}</div></p>
-                {{/each}}
-                {{/if}}
-                {{#if deckOrg.sideboard.instants}}
-                <p>Instants</p>
-                {{#each deckOrg.sideboard.instants}}
-                <p>{{count}} X {{card.name}}<div class="mana-cost">{{card.mana_cost}}</div></p>
-                {{/each}}
-                {{/if}}
-                {{#if deckOrg.sideboard.sorceries}}
-                <p>Sorceries</p>
-                {{#each deckOrg.sideboard.sorceries}}
-                <p>{{count}} X {{card.name}}<div class="mana-cost">{{card.mana_cost}}</div></p>
-                {{/each}}
-                {{/if}}
-                {{#if deckOrg.sideboard.planeswalkers}}
-                <p>Planeswalkers</p>
-                {{#each deckOrg.sideboard.planeswalkers}}
-                <p>{{count}} X {{card.name}}<div class="mana-cost">{{card.mana_cost}}</div></p>
-                {{/each}}
-                {{/if}}
-                {{#if deckOrg.sideboard.creatures}}
-                <p>Creatures</p>
-                {{#each deckOrg.sideboard.creatures}}
-                <p>{{count}} X {{card.name}}<div class="mana-cost">{{card.mana_cost}}</div></p>
-                {{/each}}
-                {{/if}}
-                {{#if deckOrg.sideboard.others}}
-                <p>Others</p>
-                {{#each deckOrg.sideboard.others}}
-                <p>{{count}} X {{card.name}}<div class="mana-cost">{{card.mana_cost}}</div></p>
-                {{/each}}
-                {{/if}}
+            {{#if deckOrg.mainCards.creatures}}
+            <div class="col-xs-12"><p class="innerheader">Creatures</p></div>
+            {{#each deckOrg.mainCards.creatures}}
+            <div class="col-xs-12 col-sm-6">
+                <p style="display:inline;"><strong>{{count}}&nbsp;</strong>{{card.name}}&nbsp;</p><span class="mana-cost">{{card.mana_cost}}</span>
+            </div>
+            {{/each}}
+            <div class="col-xs-12"><hr class="solid" style="magin-bottom: 50px"></div>
+            {{/if}}
+            {{#if deckOrg.mainCards.artifacts}}
+            <div class="col-xs-12"><p class="innerheader">Artifacts</p></div>
+            {{#each deckOrg.mainCards.artifacts}}
+            <div class="col-xs-12 col-sm-6">
+                <p style="display:inline;"><strong>{{count}}&nbsp;</strong>{{card.name}}&nbsp;</p><span class="mana-cost">{{card.mana_cost}}</span>
+            </div>
+            {{/each}}
+            <div class="col-xs-12"><hr class="solid" style="magin-bottom: 50px"></div>
+            {{/if}}
+            {{#if deckOrg.mainCards.enchantments}}
+            <div class="col-xs-12"><p class="innerheader">Enchantments</p></div>
+            {{#each deckOrg.mainCards.enchantments}}
+            <div class="col-xs-12 col-sm-6">
+                <p style="display:inline;"><strong>{{count}}&nbsp;</strong>{{card.name}}&nbsp;</p><span class="mana-cost">{{card.mana_cost}}</span>
+            </div>
+            {{/each}}
+            <div class="col-xs-12"><hr class="solid" style="magin-bottom: 50px"></div>
+            {{/if}}
+            {{#if deckOrg.mainCards.instants}}
+            <div class="col-xs-12"><p class="innerheader">Instants</p></div>
+            {{#each deckOrg.mainCards.instants}}
+            <div class="col-xs-12 col-sm-6">
+                <p style="display:inline;"><strong>{{count}}&nbsp;</strong>{{card.name}}&nbsp;</p><span class="mana-cost">{{card.mana_cost}}</span>
+            </div>
+            {{/each}}
+            <div class="col-xs-12"><hr class="solid" style="magin-bottom: 50px"></div>
+            {{/if}}
+            {{#if deckOrg.mainCards.sorceries}}
+            <div class="col-xs-12"><p class="innerheader">Sorceries</p></div>
+            {{#each deckOrg.mainCards.sorceries}}
+            <div class="col-xs-12 col-sm-6">
+                <p style="display:inline;"><strong>{{count}}&nbsp;</strong>{{card.name}}&nbsp;</p><span class="mana-cost">{{card.mana_cost}}</span>
+            </div>
+            {{/each}}
+            <div class="col-xs-12"><hr class="solid" style="magin-bottom: 50px"></div>
+            {{/if}}
+            {{#if deckOrg.mainCards.planeswalkers}}
+            <div class="col-xs-12"><p class="innerheader">Planeswalkers</p></div>
+            {{#each deckOrg.mainCards.planeswalkers}}
+            <div class="col-xs-12 col-sm-6">
+                <p style="display:inline;"><strong>{{count}}&nbsp;</strong>{{card.name}}&nbsp;</p><span class="mana-cost">{{card.mana_cost}}</span>
+            </div>
+            {{/each}}
+            <div class="col-xs-12"><hr class="solid" style="magin-bottom: 50px"></div>
+            {{/if}}
+            {{#if deckOrg.mainCards.lands}}
+            <div class="col-xs-12"><p class="innerheader">Lands</p></div>
+            {{#each deckOrg.mainCards.lands}}
+            <div class="col-xs-12 col-sm-6">
+                <p style="display:inline;"><strong>{{count}}&nbsp;</strong>{{card.name}}&nbsp;</p><span class="mana-cost">{{card.mana_cost}}</span>
+            </div>
+            {{/each}}
+            <div class="col-xs-12"><hr class="solid" style="magin-bottom: 50px"></div>
+            {{/if}}
+            {{#if deckOrg.mainCards.others}}
+            <div class="col-xs-12"><p class="innerheader">Others</p></div>
+            {{#each deckOrg.mainCards.others}}
+            <div class="col-xs-12 col-sm-6">
+                <p style="display:inline;"><strong>{{count}}&nbsp;</strong>{{card.name}}&nbsp;</p><span class="mana-cost">{{card.mana_cost}}</span>
+            </div>
+            {{/each}}
+            <div class="col-xs-12"><hr class="solid" style="magin-bottom: 50px"></div>
+            {{/if}}
+            <!--- ===== END SIDEBOARD ===== -->
         </div>
         <!-- ===== // END DECK CARDS ===== -->
         <!-- ===== START BUTTONS AND LIKES ===== -->
-        <div class="container">
-            <!-- INNER DIVIDER -->
-            <div class="col-xs-12 items-container bottom-wrapper">
-                <p>&nbsp;</p>
-            </div>
-            <!-- /INNER DIVIDER -->
-            <form action='/deckInfo/like' method='GET'>
-            <p>Likes: {{likes}}</p><button type='submit'>Like</button>
-            </form>
-            <form action='/deckInfo/dislike' method='GET'>
-            <p>Dislikes: {{dislikes}}</p><button type='submit'>Dislike</button>
-            </form>
+        <div class="container mw750" style="margin-top:15px">
             {{#if isUserAuthor}}
-            <form action='/myDecks/modify/{{deckOrg.id}}' method='POST'>
-            <button type='submit'>Modify deck</button>
-            </form>
-            <form action="/myDecks/delete/{{_id}}" method="POST"><button>Delete deck</button></form>   
+            <div class="col-xs-6">
+                <p class="atext" style="display: inline">
+                    <span class="ion-thumbsup" style="font-size:160%"></span>&nbsp;&nbsp;<span style="font-family:Arial, Helvetica, sans-serif"><b>{{likes}}</b></span>
+                </p>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <p class="atext" style="display: inline">
+                    <span class="ion-thumbsdown" style="font-size:160%"></span>&nbsp;&nbsp;<span style="font-family:Arial, Helvetica, sans-serif"><b>{{dislikes}}</b></span>
+                </p>
+            </div>
             {{else}}
-            <form action='/myDecks/copy/{{deckOrg.id}}' method='GET'>
-            <button type='submit'>Copy deck</button>
-            </form>
+            {{#if isLogged}}
+            <div class="col-xs-6">
+                <a href="/deckInfo/like" class="atext">
+                    <span class="ion-thumbsup" style="font-size:160%"></span>&nbsp;&nbsp;<span style="font-family:Arial, Helvetica, sans-serif"><b>{{likes}}</b></span>
+                </a>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="/deckInfo/dislike" class="atext">
+                    <span class="ion-thumbsdown" style="font-size:160%"></span>&nbsp;&nbsp;<span style="font-family:Arial, Helvetica, sans-serif"><b>{{dislikes}}</b></span>
+                </a>
+            </div>
+            {{else}}
+            <div class="col-xs-6">
+                <a href="/login" class="atext">
+                    <span class="ion-thumbsup" style="font-size:160%"></span>&nbsp;&nbsp;<span style="font-family:Arial, Helvetica, sans-serif"><b>{{likes}}</b></span>
+                </a>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="/login" class="atext">
+                    <span class="ion-thumbsdown" style="font-size:160%"></span>&nbsp;&nbsp;<span style="font-family:Arial, Helvetica, sans-serif"><b>{{dislikes}}</b></span>
+                </a>
+            </div>
             {{/if}}
+            {{/if}}
+            <div class="col-xs-6 text-right">
+                {{#if isUserAuthor}}
+                <form id="edit" action="/myDecks/modify/{{deckOrg.id}}" method="POST" style="display:inline">
+                    <a href="javascript:$('#edit').submit();" class="atext">
+                        <span class="ion-compose" style="font-size:140%"></span>&nbsp;&nbsp;Edit Deck
+                    </a>
+                </form>
+               &nbsp;&nbsp;&nbsp;&nbsp; 
+                <form id="delete" action="/myDecks/delete/{{_ide}}" method="POST"style="display:inline">
+                    <a href="javascript:$('#delete').submit();" class="atext">
+                        <span class="ion-trash-a" style="font-size:140%"></span>&nbsp;&nbsp;Delete Deck
+                    </a>
+                </form>
+                {{else}}
+                {{#if isLogged}}
+                <form id="copy" action="/myDecks/copy/{{deckOrg.id}}" method="GET">
+                    <a href="javascript:$('#copy').submit();" class="atext">
+                        <span class="ion-android-bookmark" style="font-size:140%"></span>&nbsp;&nbsp;Add to My Decks
+                    </a>
+                </form>
+                {{else}}
+                <form id="copy" action="/login" method="GET">
+                    <a href="javascript:$('#copy').submit();" class="atext">
+                        <span class="ion-android-bookmark" style="font-size:140%"></span>&nbsp;&nbsp;Add to My Decks
+                    </a>
+                </form>
+                {{/if}}
+                {{/if}}
+            </div>
         </div>
         <!-- ===== END BUTTONS AND LIKES ===== -->
         <!-- ===== START COMMENTS ===== -->

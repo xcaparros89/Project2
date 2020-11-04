@@ -27,18 +27,17 @@
         <!-- ============== COLLECTION CARDS (NEEDS TO BE FILTERED) ============== -->
         <div class="row text-center" style="margin: 35px auto 0 auto">
             <form id="form" action="/makeDeck" method="POST">
-                <input class="hidden" type='text' name='title' value="New&nbsp;Deck">
-                <input class="hidden" type='text' name='description' value='Deck&nbsp;Description'>
+                <input class="hidden" type='text' name='title' value="My New Deck">
+                <input class="hidden" type='text' name='description' value="Deck description">
                 <a href="javascript:$('#form').submit();" class="button-game btn-new-deck">
                     <span class="button-game-bg-left"></span>
                     <span class="button-game-bg-mid">
-                    <span>&nbsp;&nbsp;New Deck</span>
+                    <span>New Deck</span>
                     </span> 
                     <span class="button-game-bg-right"></span>
                 </a>
             </form>
         </div>
-
        {{#each myDecks}}
             <article class="col-xs-6 col-sm-4 col-md-3 box features-item thumbnail-100 img-bg" data-toggle="modal" data-target="#shop-modal">
             <a href="search/deck/{{_id._id}}">
@@ -47,7 +46,6 @@
                     <p>{{title}}</p>
                 </div>
             </a>
-
             </article>
         {{/each}}
         </div>
