@@ -395,12 +395,13 @@ transition: color .33s; }
 
 .button-game {
 display: inline-block;
-font-size: 16px;
+font-size: 14px;
 line-height: 54px;
 padding: 0 3px;
 position: relative;
 text-align: center;
-width: 100%; }
+width: 100%;
+}
 @media only screen and (min-device-width: 1024px) and (max-device-width: 1024px) and (min-device-height: 1366px) and (max-device-height: 1366px) and (min-width: 1024px) and (max-width: 1024px) {
     .button-game {
     font-size: 14px; } }
@@ -1174,7 +1175,7 @@ padding-bottom: 4rem; }
     border-top-color: #734a32;
     color: #ffcb8d;
     min-height: 7rem;
-    min-width: 11.5rem;
+    min-width: 100%;
 }
 
 @media (max-width: 768px) {
@@ -1332,12 +1333,17 @@ ion-icon {
     /* text-shadow: 0px 0px 30px #c4ae78; */
 }
 
-.button-game {
-    margin-bottom: 25px;
+.btn-login {
+    max-width: 190px;
+}
+
+.btn-new-deck {
+    width: 220px!important;
 }
 
 .login-form input{
     margin-bottom: 25px;
+    max-width: 315px;
 }
 
 
@@ -1402,6 +1408,10 @@ h3.profile-h{
     margin-bottom: 45px;
 }
 
+.btn-search {
+    margin-bottom: 20px;
+}
+
 .centered {
     position: absolute;
     top: 50%;
@@ -1411,7 +1421,45 @@ h3.profile-h{
     font-family: Arial, Helvetica, sans-serif;
     font-weight: 500;
     font-size: 2vh;
-  }
+}
+
+p, textarea, input {
+    font-family: Helvetica, Arial, sans-serif;
+    color: #71675b;
+} 
+
+.contact-form textarea {
+    margin-bottom: 15px;
+    font-size: 18px;
+}
+
+.comment {
+    font-size:18px;
+}
+
+@media (max-width: 768px){
+    .contact-form textarea, .comment {
+        font-size: 16px;
+    }
+}
+
+.mw750 {
+    max-width: 750px;
+}
+
+.innerheader {
+    font-family: "Cinzel Decorative", "Palatino Light", Times, "Times New Roman", Georgia, serif;
+    color: #ad835a;
+}
+
+hr.solid {
+    border-top:1px solid rgba(91,61,40,.7);
+}
+
+hr.invisible {
+    margin-bottom:15px;
+    visibility: hidden;
+}
 
   /* Increase navbar collapse point*/
 @media (max-width: 991px) {
