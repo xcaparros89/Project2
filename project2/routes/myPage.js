@@ -21,12 +21,9 @@ router.use((req, res, next) => { // Todo lo que esta dentro del Array es protect
   
   //Profile
   router.get("/profile", function (req, res, next) {
-<<<<<<< HEAD
     if(req.session.currentUser) {
       res.locals.isLogged = true;
     }
-=======
->>>>>>> staging
     res.render("myPage/profile", {user:req.session.currentUser});
   })
 
