@@ -1,6 +1,7 @@
     <h2>Deck search</h2>
 <form action="/search/deck" method="post">
     <label for="title">Title: <input type="text" name="title" /></label><br />
+    
     <input type="checkbox" name="colors[]" value="B"><label for='colors[]'></label>Black</label>
     <input type="checkbox" name="colors[]" value="W"><label for='colors[]'></label>White</label>
     <input type="checkbox" name="colors[]" value="G"><label for='colors[]'></label>Green</label>
@@ -20,6 +21,10 @@
     <input type="checkbox" name="legalities[]" value="duel"><label>Duel</label>
     <input type="checkbox" name="legalities[]" value="oldschool"><label>Oldschool</label>
     <input type="submit" name="submit" value="Enviar"/>
+
+    <input type="checkbox" name="checkbox" id="checkbox_id" value="value">
+<label for="checkbox_id"><img src="/img/mana-cost/g.png" alt=""></label>
+
 </form>
 <div>
     <ul>

@@ -35,8 +35,17 @@
                 <hr class="Divider-rule">
             </div>
         <!-- ============== COLLECTION CARDS (NEEDS TO BE FILTERED) ============== -->
-        <div class="row" style="margin: 15px auto 70px auto">
-
+        <div class="row text-center" style="margin: 35px auto 0 auto">
+            <form id="form" action="/modifyProfile/" method="GET">
+                <a href="javascript:$('#form').submit();" class="button-game btn-add-deck">
+                    <span class="button-game-bg-left"></span>
+                    <span class="button-game-bg-mid">
+                    <span class="ion-edit  button-game-apple"></span><span>&nbsp;&nbsp;Edit</span>
+                    </span> 
+                    <span class="button-game-bg-right"></span>
+                </a>
+            </form>
+        </div>
 
        {{#each myDecks}}
             <article class="col-xs-6 col-sm-4 col-md-3 box features-item thumbnail-100 img-bg" data-toggle="modal" data-target="#shop-modal">

@@ -21,10 +21,16 @@ router.use((req, res, next) => { // Todo lo que esta dentro del Array es protect
   
   //Profile
   router.get("/profile", function (req, res, next) {
+    if(req.session.currentUser) {
+      res.locals.isLogged = true;
+    }
     res.render("myPage/profile", {user:req.session.currentUser});
   })
 
   router.get("/modifyProfile", function (req, res, next) {
+    if(req.session.currentUser) {
+      res.locals.isLogged = true;
+    }
     res.render("myPage/modifyProfile", {user:req.session.currentUser});
   })
 
@@ -165,21 +171,33 @@ router.post('/makeDeck/move/undecided/:id', (req,res,next)=>{
 });
 
 router.get('/makeDeck/delete/main/:id', (req,res,next)=>{
+  if(req.session.currentUser) {
+    res.locals.isLogged = true;
+  }
   newDeck.cards.main = newDeck.cards.main.filter(cardObj=> cardObj.card._id != req.params.id);
   res.render("myPage/makeDeck", { newDeck });
 });
 
 router.get('/makeDeck/delete/side/:id', (req,res,next)=>{
+  if(req.session.currentUser) {
+    res.locals.isLogged = true;
+  }
   newDeck.cards.side = newDeck.cards.side.filter(cardObj=> cardObj.card._id != req.params.id);
   res.render("myPage/makeDeck", { newDeck });
 });
 
 router.get('/makeDeck/delete/undecided/:id', (req,res,next)=>{
+  if(req.session.currentUser) {
+    res.locals.isLogged = true;
+  }
   newDeck.cards.undecided = newDeck.cards.undecided.filter(cardObj=> cardObj.card._id != req.params.id);
   res.render("myPage/makeDeck", { newDeck });
 });
 
 router.get('/makeDeck/save',async (req,res,next)=>{
+  if(req.session.currentUser) {
+    res.locals.isLogged = true;
+  }
   let mistakes = '';
   let colors = [];
   let legalities = ['standard', 'future', 'historic', 'pioneer', 'modern', 'legacy', 'pauper', 'vintage', 'penny', 'commander', 'brawl', 'duel', 'oldschool'];
@@ -232,6 +250,9 @@ router.get('/makeDeck/save',async (req,res,next)=>{
 
 //My decks
 router.get("/myDecks", async function (req, res, next) {
+  if(req.session.currentUser) {
+    res.locals.isLogged = true;
+  }
     try {
         let myDecks = await Deck.find({authorId:req.session.currentUser._id});
       res.render("myPage/myDecks", {myDecks});
@@ -251,6 +272,9 @@ router.post('/myDecks/modify/:id', async function (req,res,next){
 });
 
 router.get("/myDecks/copy/:id", async function (req, res, next) {
+  if(req.session.currentUser) {
+    res.locals.isLogged = true;
+  }
   let copiedDeck = await Deck.findById(req.params.id);
   copiedDeck = JSON.stringify(copiedDeck);
   let newDeck = JSON.parse(copiedDeck);
