@@ -169,6 +169,19 @@ background-image: url(../img/dark_leather.png); }
     background-position: center center;
 }
 
+.pattern-empty {
+    background-size: cover;
+    background-position: center center;
+    border: 1px solid rgba(157,146,128,.4);
+    box-shadow: 0px 0px 25px 0px rgba(157,146,128,.6);
+    /* min-width:100%;
+    margin-top:30px;
+    margin-bottom:25px;
+    min-height:120px; */
+    /* border-radius:10px; */
+    /* padding:15px; */
+}
+
 .box {
 margin-top: 1.5rem;
 /* margin-bottom: 2rem; */
@@ -1337,13 +1350,14 @@ ion-icon {
 }
 
 .footer-row p {
-    margin-top:4vh;
+
     color:#99774c;
     font-size: 14px;
     font-family: "Cinzel Decorative", "Palatino Light", Times, Times New Roman, Georgia, serif;
     font-weight: 300;
     text-rendering: optimizeLegibility;
     opacity: .9;
+    margin-top:5vh;
 }
 
 .section-header {
@@ -1442,25 +1456,27 @@ h3.profile-h{
     font-size: 2vh;
   }
 
-.color-search{
-    width:50%;
-    border-radius: 50%;
-}
-
 .color-unchecked{
-    opacity: 0.4;
+    opacity: .6;
+    width: 50px;
+    padding:2px;
+    border: 1px solid rgba(157,146,128,.4);
+    border-radius:50%;
 }
 
-.color-search:hover{
-    box-shadow: 0px 0px 20px 0px rgba(197, 187, 170, 0.8);
-}
-.color-checked{
-    opacity:1;
+.color-checked {
+    opacity: 1;
+    width: 50px;
+    padding: 2px;
+    border: 1px solid #c4ae78;
+    box-shadow: 0px 0px 5px 0px rgba(157,146,128,.6);
+    border-radius: 50%;
 }
 
 
 .symbol{
     width: 20px;
+    padding:2px;
 }
 
 .hide-element{
@@ -1481,8 +1497,28 @@ p, textarea, input, select {
     font-size:18px;
 }
 
+a.atext, p.atext {
+    font-family: "Cinzel Decorative", "Palatino Light", Times, "Times New Roman", Georgia, serif;
+    font-size:18px;
+    color: #ad835a;
+    transition: all 0.5s ease-in-out;
+}
+
+a.atext:hover {
+    font-size:18px;
+    text-decoration: none;
+    color: #c4ae78;
+}
+
+/* strong {
+    color:#c4ae78;
+    font-weight: 500;
+} */
+
+
+
 @media (max-width: 768px){
-    .contact-form textarea, .comment {
+    .contact-form textarea, .comment, .atext, .atext:hover {
         font-size: 16px;
     }
 }
@@ -1496,6 +1532,13 @@ p, textarea, input, select {
     color: #ad835a;
 }
 
+.innerTitle {
+    font-family: "Cinzel Decorative", "Palatino Light", Times, "Times New Roman", Georgia, serif;
+    color: #c4ae78;
+    font-size:130%;
+    margin-bottom: 25px;
+}
+
 hr.solid {
     border-top:1px solid rgba(91,61,40,.7);
 }
@@ -1504,6 +1547,8 @@ hr.invisible {
     margin-bottom:15px;
     visibility: hidden;
 }
+
+
 
   /* Increase navbar collapse point*/
 @media (max-width: 991px) {
